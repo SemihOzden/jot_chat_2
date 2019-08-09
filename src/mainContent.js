@@ -8,9 +8,13 @@ import {connect} from "react-redux";
     addMessage=(message)=>{
 
         console.log( "inputtan gelen message",message);
+        message.keyId = Math.random();
         this.props.dispatch({type:"SAVE_MESSAGE",typeMessage:message});
-        console.log("state de olan message",this.props.saveMessage);
+
     }
+    // componentDidUpdate(){
+    //     console.log("Redux state de olan message",this.props.saveMessage);
+    // }
 
 render(){
     let sendSomething="Main contentten type message'e mesaj gönderildi";
@@ -149,6 +153,28 @@ render(){
                                 <span className="time_date"> 11:01 AM | June 9</span>
                             </div>
                         </div>
+                        {
+                            //User sent messages
+
+                            this.props.saveMessage.map(message=>{
+                                return (
+                                <div className="incoming_msg" key={message.keyId}>
+                                <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
+                                        alt="sunil" />
+                                </div>
+                                <div className="received_msg">
+                                    <div className="received_withd_msg">
+                                    <p>Your answer.</p>
+                                        <p>
+                                            {message.content}
+                                        </p>
+                                        <span className="time_date"> 11:04 AM | June 9</span>
+                                    </div>
+                                </div>
+                            </div>);
+                            })
+                        }
+
                     </div>
 
                     <TypeMessage message={sendSomething} addMessage={this.addMessage}/>
