@@ -17,6 +17,7 @@ class TypeMessage extends Component{
         event.preventDefault();
         this.props.addMessage(this.state);
         this.setState({content:''});
+        this.props.moreCount();
     }
 
     render(){

@@ -4,6 +4,14 @@ import {connect} from "react-redux";
 
 
  class MainContent extends Component{
+     constructor(props){
+         super(props);
+         this.state={
+             count:[],
+             questions:[]
+         }
+
+     }
 
     addMessage=(message)=>{
 
@@ -12,9 +20,34 @@ import {connect} from "react-redux";
         this.props.dispatch({type:"SAVE_MESSAGE",typeMessage:message});
 
     }
-    // componentDidUpdate(){
-    //     console.log("Redux state de olan message",this.props.saveMessage);
-    // }
+
+
+    moreCount=()=>{
+        console.log("more count tıklandı");
+        this.setState(prevState=>({
+            count:prevState.count+1
+        }));
+    }
+
+    _nextQuestion=()=>{
+        this.setState(prevState=>({
+            count:prevState.count+1
+        }));
+
+
+        Object.entries(this.props.saveFormQuestions).map(([key, value], i) => {
+
+                //if(key===this.state.count.toString() && value.type==='control_fullname'){
+                    return (
+                        this.setState(prevState=>({
+                            questions:prevState.questions.concat(value)
+                        }))
+
+                    );
+            })
+    }
+
+
 
 render(){
     let sendSomething="Main contentten type message'e mesaj gönderildi";
@@ -37,13 +70,77 @@ render(){
                             <div className="sent_msg">
                                 <p>
                                     How Can I help you? Would you like to fullfill the form?
-                                    <input type="button"value="Yes"/>
+                                    <input type="button"value="Yes" onClick={this._nextQuestion}/>
                                     <input type="button"value="No"/>
                                     </p>
                                 <span className="time_date"> 11:01 AM | June 9</span>
                             </div>
                         </div>
-                        <div className="incoming_msg">
+                        {
+
+
+
+                            this.state.questions.map(item=>{
+
+                                if(item.type==='control_fullname' && item.order===this.state.count.toString()){
+                                    return(
+                                        <div className="incoming_msg" key={item.qid}>
+                                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
+                                                    alt="sunil"/>
+                                            </div>
+                                            <div className="received_msg">
+                                                <div className="received_withd_msg">
+                                                    <p>{item.type}</p>
+                                                    <p>
+
+                                                    </p>
+                                                    <span className="time_date"> 11:01 AM | June 9</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}else if(item.type==='control_email' && item.order===this.state.count.toString()){
+                                        return(
+                                            <div className="incoming_msg" key={item.qid}>
+                                                <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
+                                                        alt="sunil"/>
+                                                </div>
+                                                <div className="received_msg">
+                                                    <div className="received_withd_msg">
+                                                        <p>{item.type}</p>
+                                                        <p>
+
+                                                        </p>
+                                                        <span className="time_date"> 11:01 AM | June 9</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    }else if(item.type==='control_textarea' && item.order===this.state.count.toString()){
+                                        return(
+                                            <div className="incoming_msg" key={item.qid}>
+                                                <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
+                                                        alt="sunil"/>
+                                                </div>
+                                                <div className="received_msg">
+                                                    <div className="received_withd_msg">
+                                                        <p>{item.type}</p>
+                                                        <p>
+
+                                                        </p>
+                                                        <span className="time_date"> 11:01 AM | June 9</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    }else{
+                                        return(<div style={{display:'none'}}>We dont find any questions in your form</div>);
+                                    }
+
+
+                            })
+                        }
+
+                        {/* <div className="incoming_msg">
                             <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
                                     alt="sunil"/>
                             </div>
@@ -152,7 +249,7 @@ render(){
                                     </p>
                                 <span className="time_date"> 11:01 AM | June 9</span>
                             </div>
-                        </div>
+                        </div> */}
                         {
                             //User sent messages
 
@@ -177,7 +274,7 @@ render(){
 
                     </div>
 
-                    <TypeMessage message={sendSomething} addMessage={this.addMessage}/>
+                    <TypeMessage message={sendSomething} addMessage={this.addMessage} moreCount={this.moreCount}/>
 
                     {
                         //////////MESSAGE FIELD////////////////*\
@@ -192,7 +289,8 @@ render(){
 const mapStateToProps=state=>({
     formId:state.formId,
     apiKey:state.apiKey,
-    saveMessage:state.saveMessage
+    saveMessage:state.saveMessage,
+    saveFormQuestions:state.saveFormQuestions
 })
 
 export default connect(mapStateToProps)(MainContent);

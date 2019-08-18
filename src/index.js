@@ -9,7 +9,8 @@ import * as serviceWorker from './serviceWorker';
 const initialState={
     formId:'92112257961961',
     apiKey:'b0b5f3df579dcdea3f6dd754f6d26327',
-    saveMessage:[]
+    saveMessage:[],
+    saveFormQuestions:[]
 }
 
 function reducer(state=initialState,action){
@@ -19,6 +20,11 @@ function reducer(state=initialState,action){
                 ...state,
                 saveMessage:[...state.saveMessage,action.typeMessage]
             };
+        case "SAVE_FORM_QUESTIONS":
+            return{
+                ...state,
+                saveFormQuestions:action.formQuestion
+            }
 
         default:
             return state
