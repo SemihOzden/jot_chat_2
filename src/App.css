@@ -234,3 +234,8 @@ img {
   width: 60%;
   height: 80px;
 }
+
+.sendForm{
+  float: right;
+
+}

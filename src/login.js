@@ -18,9 +18,7 @@ class Login extends React.Component{
         },function(error){
             console.log(error);
         });
-
     }
-
 
     render(){
         return(

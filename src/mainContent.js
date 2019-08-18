@@ -7,10 +7,30 @@ import {connect} from "react-redux";
      constructor(props){
          super(props);
          this.state={
-             count:[],
+             count:0,
              questions:[]
          }
+         this.sendForm=this.sendForm.bind(this);
+     }
 
+     sendForm=()=>{
+         console.log("state",this.state.questions);
+         console.log("props",this.props.saveMessage);
+         var submissionsArray = [{
+            "1": {"1": "Answer 11"},
+
+        }];
+
+       var jsonData = JSON.stringify(submissionsArray);
+
+        window.JF.createFormSubmissions(this.props.formId, jsonData, function(response){
+            /**
+             successful response including new submissions
+             */
+            for(var i=0; i<response.length; i++){
+               console.log("form is submitted",response[i].URL);
+            }
+        });
      }
 
     addMessage=(message)=>{
@@ -18,33 +38,61 @@ import {connect} from "react-redux";
         console.log( "inputtan gelen message",message);
         message.keyId = Math.random();
         this.props.dispatch({type:"SAVE_MESSAGE",typeMessage:message});
-
     }
 
 
     moreCount=()=>{
         console.log("more count tıklandı");
-        this.setState(prevState=>({
-            count:prevState.count+1
-        }));
+        var x=this;
+        new Promise(function(resolve,reject){
+            //count is increased
+            setTimeout(resolve(
+                x.setState(prevState=>({
+                    count:prevState.count+1
+                }))
+            ),1000);
+        }).then(function(result){
+
+            Object.entries(x.props.saveFormQuestions).map(([key, value], i) => {
+
+                if(key===x.state.count.toString()){
+                    console.log("key",key);
+                    return (
+                        x.setState(prevState=>({
+                            questions:prevState.questions.concat(value)
+                        }))
+                    );
+                 }
+                 return x.state.questions;
+
+            })
+        })
     }
 
     _nextQuestion=()=>{
-        this.setState(prevState=>({
-            count:prevState.count+1
-        }));
+        var x=this;
+        new Promise(function(resolve,reject){
+            //count is increased
+            setTimeout(resolve(
+                x.setState(prevState=>({
+                    count:prevState.count+1
+                }))
+            ),1000);
+        }).then(function(result){
 
+            Object.entries(x.props.saveFormQuestions).map(([key, value], i) => {
 
-        Object.entries(this.props.saveFormQuestions).map(([key, value], i) => {
-
-                //if(key===this.state.count.toString() && value.type==='control_fullname'){
+                if(key===x.state.count.toString() && (value.type==="control_fullname" || value.type==="control_email" || value.type==="control_textarea")){
                     return (
-                        this.setState(prevState=>({
+                        x.setState(prevState=>({
                             questions:prevState.questions.concat(value)
                         }))
-
                     );
+                 }
+                 return x.state.questions;
+
             })
+        })
     }
 
 
@@ -78,11 +126,9 @@ render(){
                         </div>
                         {
 
-
-
                             this.state.questions.map(item=>{
 
-                                if(item.type==='control_fullname' && item.order===this.state.count.toString()){
+                                if(item.type==='control_fullname'){
                                     return(
                                         <div className="incoming_msg" key={item.qid}>
                                             <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
@@ -90,7 +136,7 @@ render(){
                                             </div>
                                             <div className="received_msg">
                                                 <div className="received_withd_msg">
-                                                    <p>{item.type}</p>
+                                                    <p>What is your name? {item.type}</p>
                                                     <p>
 
                                                     </p>
@@ -98,7 +144,7 @@ render(){
                                                 </div>
                                             </div>
                                         </div>
-                                    )}else if(item.type==='control_email' && item.order===this.state.count.toString()){
+                                    )}else if(item.type==='control_email'){
                                         return(
                                             <div className="incoming_msg" key={item.qid}>
                                                 <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
@@ -106,7 +152,7 @@ render(){
                                                 </div>
                                                 <div className="received_msg">
                                                     <div className="received_withd_msg">
-                                                        <p>{item.type}</p>
+                                                        <p>What is your e-mail? {item.type}</p>
                                                         <p>
 
                                                         </p>
@@ -115,7 +161,7 @@ render(){
                                                 </div>
                                             </div>
                                         )
-                                    }else if(item.type==='control_textarea' && item.order===this.state.count.toString()){
+                                    }else if(item.type==='control_textarea'){
                                         return(
                                             <div className="incoming_msg" key={item.qid}>
                                                 <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
@@ -123,7 +169,7 @@ render(){
                                                 </div>
                                                 <div className="received_msg">
                                                     <div className="received_withd_msg">
-                                                        <p>{item.type}</p>
+                                                        <p>{item.text},{item.type}</p>
                                                         <p>
 
                                                         </p>
@@ -140,116 +186,6 @@ render(){
                             })
                         }
 
-                        {/* <div className="incoming_msg">
-                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                    alt="sunil"/>
-                            </div>
-                            <div className="received_msg">
-                                <div className="received_withd_msg">
-                                    <p>Please write your name and surname.</p>
-                                    <p>
-                                        <input type="text" placeholder="Name" className="nameInput"/>
-                                        <input type="text" placeholder="Surname" className="surnameInput"/>
-                                        <input type="button"value="Next>>" className="nextButton"/>
-                                    </p>
-                                    <span className="time_date"> 11:01 AM | June 9</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="incoming_msg">
-                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                    alt="sunil" />
-                            </div>
-                            <div className="received_msg">
-                                <div className="received_withd_msg">
-                                <p>Please write your e-mail.</p>
-                                    <p>
-                                        <input type="text" placeholder="Email" className="emailInput"/>
-                                        <input type="button"value="Next>>" className="nextButton"/>
-                                    </p>
-                                    <span className="time_date"> 11:02 AM | June 9</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="incoming_msg">
-                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                    alt="sunil" />
-                            </div>
-                            <div className="received_msg">
-                                <div className="received_withd_msg">
-                                <p>Please select date.</p>
-                                    <p>
-                                        <input type="date"  className="dateInput"/>
-                                        <input type="button"value="Next>>" className="nextButton"/>
-                                    </p>
-                                    <span className="time_date"> 11:03 AM | June 9</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="incoming_msg">
-                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                    alt="sunil" />
-                            </div>
-                            <div className="received_msg">
-                                <div className="received_withd_msg">
-                                <p>Please type a question.</p>
-                                    <p>
-                                        <textarea type="date"  className="textareaInput"/>
-                                        <input type="button"value="Next>>" className="nextButton"/>
-                                    </p>
-                                    <span className="time_date"> 11:04 AM | June 9</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="incoming_msg">
-                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                    alt="sunil" />
-                            </div>
-                            <div className="received_msg">
-                                <div className="received_withd_msg">
-                                <p>Please select a option.</p>
-                                    <p>
-                                    <input type="button"value="Next>>" className="nextButton"/>
-                                    <input type="radio" name="gender" value="male" /> Option 1<br/>
-                                    <input type="radio" name="gender" value="female"/> Option 2<br/>
-                                    <input type="radio" name="gender" value="other"/> Option 3<br/>
-
-                                    </p>
-                                    <span className="time_date"> 11:04 AM | June 9</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="incoming_msg">
-                            <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                    alt="sunil" />
-                            </div>
-                            <div className="received_msg">
-                                <div className="received_withd_msg">
-                                <p>Please select an option or options.</p>
-                                    <p>
-                                    <input type="button"value="Next>>" className="nextButton"/>
-                                    <input type="checkbox" name="vehicle" value="Bike"/> I have a bike<br/>
-                                    <input type="checkbox" name="vehicle" value="Car" /> I have a car
-
-                                    </p>
-                                    <span className="time_date"> 11:04 AM | June 9</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="outgoing_msg">
-                        <div className="outgoing_msg_img"> <img src="jot_pencil.png"
-                                    alt="pencil"/>
-                            </div>
-                            <div className="sent_msg">
-                                <p>
-                                    You fullfiled all of the fields in the form. Do you have any questions?<br/>
-                                    <input type="button"value="Yes"/>
-                                    <input type="button"value="No"/>
-                                    </p>
-                                <span className="time_date"> 11:01 AM | June 9</span>
-                            </div>
-                        </div> */}
                         {
                             //User sent messages
 
@@ -271,7 +207,9 @@ render(){
                             </div>);
                             })
                         }
-
+                        <div className="sendForm">
+                            <input type="button" value="Send Form" onClick={this.sendForm} />
+                        </div>
                     </div>
 
                     <TypeMessage message={sendSomething} addMessage={this.addMessage} moreCount={this.moreCount}/>
