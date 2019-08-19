@@ -2,12 +2,11 @@ import React,{Component} from "react";
 import TypeMessage from './typeMessage';
 import {connect} from "react-redux";
 
-
  class MainContent extends Component{
      constructor(props){
          super(props);
          this.state={
-             count:0,
+             count:2,
              questions:[]
          }
          this.sendForm=this.sendForm.bind(this);
@@ -16,21 +15,20 @@ import {connect} from "react-redux";
      sendForm=()=>{
          console.log("state",this.state.questions);
          console.log("props",this.props.saveMessage);
-         var submissionsArray = [{
-            "1": {"1": "Answer 11"},
+         var submissions = {};
 
-        }];
 
-       var jsonData = JSON.stringify(submissionsArray);
+         submissions['3'] =JSON.stringify( {first: 'semih',
+                                            last:'özden'});
 
-        window.JF.createFormSubmissions(this.props.formId, jsonData, function(response){
-            /**
-             successful response including new submissions
-             */
-            for(var i=0; i<response.length; i++){
-               console.log("form is submitted",response[i].URL);
-            }
-        });
+
+        console.log(submissions);
+
+        window.JF.createFormSubmission(this.props.formId, submissions, function(response){
+
+            console.log(response.URL);
+        })
+
      }
 
     addMessage=(message)=>{
@@ -46,11 +44,11 @@ import {connect} from "react-redux";
         var x=this;
         new Promise(function(resolve,reject){
             //count is increased
-            setTimeout(resolve(
+            setTimeout(
                 x.setState(prevState=>({
                     count:prevState.count+1
-                }))
-            ),1000);
+                }), resolve)
+            ,1000);
         }).then(function(result){
 
             Object.entries(x.props.saveFormQuestions).map(([key, value], i) => {
@@ -70,14 +68,17 @@ import {connect} from "react-redux";
     }
 
     _nextQuestion=()=>{
+
+        //this.props.dispatch({type:"SAVE_MESSAGE",lineQues:message});
+
         var x=this;
         new Promise(function(resolve,reject){
             //count is increased
-            setTimeout(resolve(
+            setTimeout(
                 x.setState(prevState=>({
                     count:prevState.count+1
-                }))
-            ),1000);
+                }),resolve)
+            ,1000);
         }).then(function(result){
 
             Object.entries(x.props.saveFormQuestions).map(([key, value], i) => {
@@ -136,7 +137,7 @@ render(){
                                             </div>
                                             <div className="received_msg">
                                                 <div className="received_withd_msg">
-                                                    <p>What is your name? {item.type}</p>
+                                                    <p>What is your name and surname? Please write with space between your name and surname!{item.type}</p>
                                                     <p>
 
                                                     </p>
