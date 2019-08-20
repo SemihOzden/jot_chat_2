@@ -43,14 +43,8 @@ import {connect} from "react-redux";
             console.log("son message",x.state.messages[(x.state.messages.length)-1].message);
             var lastMessage=x.state.messages[(x.state.messages.length)-1].message=message.content;
 
-
             resolve(lastMessage);
-            // x.state.messages.map(item => {
-            //     return Object.entries(item.question).map(([key,value],i)=>{
-            //         console.log("value.message",value);
-            //         return value.question;
-            //     })
-            // })
+
         });
 
         let promiseCount=new Promise(function(resolve,reject){
@@ -79,10 +73,6 @@ import {connect} from "react-redux";
 
     }
 
-
-
-
-
     async nextQuestion(){
 
         var x=this;
@@ -110,8 +100,6 @@ import {connect} from "react-redux";
 
 
     }
-
-
 
 render(){
     let sendSomething="Main contentten type message'e mesaj gönderildi";
@@ -242,103 +230,10 @@ render(){
                                                         )}
                                                     return(<div></div>);
                                         });
-
-
                             })
-                                // if(value.question.type==='control_fullname'){
-                                //     return(
-                                //         <div className="incoming_msg" key={value.qid}>
-                                //             <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                //                     alt="sunil"/>
-                                //             </div>
-                                //             <div className="received_msg">
-                                //                 <div className="received_withd_msg">
-                                //                     <p>What is your name and surname? Please write with space between your name and surname!{value.type}</p>
-                                //                     <p>
-
-                                //                     </p>
-                                //                     <span className="time_date"> 11:01 AM | June 9</span>
-                                //                 </div>
-                                //             </div>
-
-                                //         <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                //                 alt="sunil" />
-                                //         </div>
-                                //         <div className="received_msg">
-                                //             <div className="received_withd_msg">
-                                //             <p>Your answer.</p>
-                                //                 <p>
-                                //                     {value.text}
-                                //                 </p>
-                                //                 <span className="time_date"> 11:04 AM | June 9</span>
-                                //             </div>
-                                //         </div>
-                                //     </div>
-
-
-                                //     )}else if(value.type==='control_email'){
-                                //         return(
-                                //             <div className="incoming_msg" key={value.qid}>
-                                //                 <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                //                         alt="sunil"/>
-                                //                 </div>
-                                //                 <div className="received_msg">
-                                //                     <div className="received_withd_msg">
-                                //                         <p>What is your e-mail? {value.type}</p>
-                                //                         <p>
-
-                                //                         </p>
-                                //                         <span className="time_date"> 11:01 AM | June 9</span>
-                                //                     </div>
-                                //                 </div>
-                                //             </div>
-                                //         )
-                                //     }else if(value.type==='control_textarea'){
-                                //         return(
-                                //             <div className="incoming_msg" key={value.qid}>
-                                //                 <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                                //                         alt="sunil"/>
-                                //                 </div>
-                                //                 <div className="received_msg">
-                                //                     <div className="received_withd_msg">
-                                //                         <p>{value.text},{value.type}</p>
-                                //                         <p>
-
-                                //                         </p>
-                                //                         <span className="time_date"> 11:01 AM | June 9</span>
-                                //                     </div>
-                                //                 </div>
-                                //             </div>
-                                //         )
-                                //     }else{
-                                //         return(<div style={{display:'none'}}>We dont find any questions in your form</div>);
-                                //     }
-
-
 
                         }
 
-                        {
-                            //User sent messages
-
-                            // this.props.saveMessage.map(message=>{
-                            //     return (
-                            //     <div className="incoming_msg" key={message.keyId}>
-                            //     <div className="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
-                            //             alt="sunil" />
-                            //     </div>
-                            //     <div className="received_msg">
-                            //         <div className="received_withd_msg">
-                            //         <p>Your answer.</p>
-                            //             <p>
-                            //                 {message.content}
-                            //             </p>
-                            //             <span className="time_date"> 11:04 AM | June 9</span>
-                            //         </div>
-                            //     </div>
-                            // </div>);
-                            // })
-                        }
                         <div className="sendForm">
                             <input type="button" value="Send Form" onClick={this.sendForm} />
                         </div>
