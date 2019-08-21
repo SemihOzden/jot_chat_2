@@ -10,7 +10,7 @@ import {connect} from "react-redux";
              questions:[],
              messages:[]
          }
-         this.sendForm=this.sendForm.bind(this);
+
          this.addMessage=this.addMessage.bind(this);
          this.nextQuestion=this.nextQuestion.bind(this);
      }
