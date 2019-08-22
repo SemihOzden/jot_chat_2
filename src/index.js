@@ -16,6 +16,7 @@ const initialState={
 function reducer(state=initialState,action){
     switch(action.type){
         case "SAVE_MESSAGE":
+
             return {
                 ...state,
                 saveMessage:[...state.saveMessage,action.typeMessage]
@@ -23,7 +24,7 @@ function reducer(state=initialState,action){
         case "SAVE_FORM_QUESTIONS":
             return{
                 ...state,
-                saveFormQuestions:action.formQuestion
+                saveFormQuestions:[...state.saveFormQuestions,action.formQuestion]
             }
 
         default:

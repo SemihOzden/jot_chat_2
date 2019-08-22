@@ -11,10 +11,17 @@ class Login extends React.Component{
         window.JF.initialize({apiKey:apiKey});
         var x=this;
 
+
         //Form questions are saved into redux store
         window.JF.getFormQuestions(this.props.formId, function(response){
-               x.props.dispatch({type:"SAVE_FORM_QUESTIONS",formQuestion:response});
-               console.log(x.props.saveFormQuestions);
+
+                Object.entries(response).map(([key,value],i)=>{
+                    value.message='hellö';
+                    return x.props.dispatch({type:"SAVE_FORM_QUESTIONS",formQuestion:value});
+
+                })
+
+               console.log("props save form questions",x.props.saveFormQuestions);
         },function(error){
             console.log(error);
         });
