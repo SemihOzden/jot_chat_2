@@ -16,7 +16,7 @@ class Login extends React.Component{
         window.JF.getFormQuestions(this.props.formId, function(response){
 
                 Object.entries(response).map(([key,value],i)=>{
-                    value.message='hellö';
+                    value.message='';
                     return x.props.dispatch({type:"SAVE_FORM_QUESTIONS",formQuestion:value});
 
                 })
