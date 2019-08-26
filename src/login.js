@@ -25,6 +25,12 @@ class Login extends React.Component{
         },function(error){
             console.log(error);
         });
+
+        window.JF.getUser(function(response){
+            return x.props.dispatch({type:"SAVE_USERNAME",getUsername:response.username});
+        },function(error){
+            console.log(error);
+        });
     }
 
     render(){

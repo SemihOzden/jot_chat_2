@@ -3,76 +3,92 @@ import TypeMessage from './typeMessage';
 import {OutgoingMessages} from './outgoingMessages';
 import {IncomingMessages} from './incomingMessages';
 import {connect} from "react-redux";
+import {WarningMessages} from './warningMessages';
 
 
 class MainContainer extends Component{
-
 constructor(props){
     super(props);
-    this.state={
-        count:0,
-        allMessages:[]
-
-    }
-}
-componentDidUpdate(){
-    console.log("after updated state",this.state);
+    this.heightRef=React.createRef()
+    this.nextQuestion=this.nextQuestion.bind(this);
+    this.addMessage=this.addMessage.bind(this);
 }
 
-nextQuestion=()=>{
-
-    this.setState(prevState => ({
-        ...this.state,
-        allMessages: [...prevState.allMessages,this.props.saveFormQuestions[this.state.count]]
-      }))
+//Next Question is shown in the screen
+updateCount=()=>{
+    return this.props.dispatch({type:"UPDATE_COUNT_IN_NEXT_QUES",comingCount:this.props.count});
+}
+saveMessageDispatch=()=>{
+    return this.props.dispatch({type:"SAVE_MESSAGE",nexFormQuestion:this.props.saveFormQuestions[this.props.count]})
 }
 
-addMessage=(message)=>{
-    // message.keyId = Math.random();
-    // this.props.dispatch({type:"SAVE_MESSAGE",typeMessage:message});
+async nextQuestion(){
 
-    //Firstly message is added into related question field's message field
+    await this.updateCount();
+    await this.saveMessageDispatch();
+}
+//Next Question is shown in the screen
 
-    let messagesCopy = JSON.parse(JSON.stringify(this.state.allMessages));
-   //make changes to message
-   messagesCopy[(messagesCopy.length)-1].message = message.content;
-   this.setState({
-      allMessages:messagesCopy
-    })
-    this.setState((prevState)=>({
-            count:prevState.count+1
-        }));
-    //count is increaed by 1
-    this.setState(prevState => ({
-        ...this.state,
-        allMessages: [...prevState.allMessages,this.props.saveFormQuestions[this.state.count]]
-      }))
-
-
-
-
-
-
+scrollToBottom=()=>{
+    this.heightRef.current.scrollTop = this.heightRef.current.scrollHeight;
 
 }
 
-createRender=()=>{
-    let renderDomElements=[];
-    var nextQues=this.state.allMessages;
-    for(var i=0;i<nextQues.length;i++){
-        if(nextQues[i].message===''){
-            renderDomElements.push(<OutgoingMessages question={nextQues[i]}/>)
-        }else if(nextQues[i].message!==''){
-            return [
-            <OutgoingMessages question={nextQues[i]}/>,
-            <IncomingMessages messages={nextQues[i]}/>
-            ]
+
+//Text added to question's message properties
+updateQuestionMessage=(message)=>{
+    let contentMessage=message.content;
+    console.log("message in updateQuestionMessage",contentMessage);
+    return this.props.dispatch({type:"UPDATE_QUESTIONS_MESSAGE",message:contentMessage});
+}
+
+saveMessageOfAddMessage=()=>{
+    return this.props.dispatch({type:"SAVE_MESSAGE",nexFormQuestion:this.props.saveFormQuestions[this.props.count]});
+}
+
+async addMessage(message){
+    console.log("message in addMessage Func",message);
+//     //Firstly message is added into related question field's message field
+        await this.updateQuestionMessage(message);
+        await this.saveMessageOfAddMessage();
+        //Next question is added into allMessages redux store
+        this.scrollToBottom();
+}
+//Text added to question's message properties
+
+warning=(warningMessage)=>{
+    let renderWarningElements=[];
+    renderWarningElements.push(<WarningMessages warnMessage={warningMessage}/>);
+    return renderWarningElements;
+}
+
+sendForm=()=>{
+    var submitMessage = {}
+        for(var i=0;i<this.props.allMessages.length;i++){
+
+            if(this.props.allMessages[i].type==='control_email'){
+                let qid=this.props.allMessages[i].qid;
+                //submissions[qid]=this.props.allMessages[i].message;
+                let message=this.props.allMessages[i].message;
+                //'3': { first: 'berkay', last: 'test' },
+
+                submitMessage[qid] = message;
+                // send it out
+
+
+
+            }else if(this.props.allMessages[i].type==="control_fullname"){
+                 let qid=this.props.allMessages[i].qid;
+                let divideFullname=this.props.allMessages[i].message.split(" ");
+
+                submitMessage[qid] ={first:divideFullname[0],last:divideFullname[1]};
+            }
         }
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://api.jotform.com/form/"+this.props.formId+"/submissions?apiKey="+this.props.apiKey+"");
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(JSON.stringify(submitMessage));
 
-    }
-
-    console.log("x", this.state.allMessages);
-    return renderDomElements;
 }
 
 
@@ -80,36 +96,59 @@ render(){
     return(
         <div className="mainContainer">
             <h3 className="text-center">Jotform ChatBot</h3>
-        <div className="messaging">
-            <div className="inbox_msg">
-                <div className="mesgs">
-                    <div className="msg_history">
+        <div className="messaging" >
+            <div className="inbox_msg" >
+                <div className="mesgs" >
+                    <div className="msg_history" ref={this.heightRef}>
+                    <div className="outgoing_msg">
+                            <div className="outgoing_msg_img">
+                                <img src="jot_pencil.png" alt="pencil"/>
+                            </div>
+                                <div className="sent_msg">
+                                    <p>
+                                        Hello {this.props.username.toUpperCase()}. Welcome to Jorform Chatbot
+                                        </p>
+                                    <span className="time_date"> 11:01 AM | June 9</span>
+                                </div>
+                        </div>
                         <div className="outgoing_msg">
                             <div className="outgoing_msg_img">
                                 <img src="jot_pencil.png" alt="pencil"/>
                             </div>
                                 <div className="sent_msg">
                                     <p>
-                                        What is your do you want to fullfill the form?
+                                        Would you like to fullfill the form?  YES OR NO ?
 
-                                        <input type="button"value="Yes" onClick={this.nextQuestion}/>
-                                        <input type="button"value="No"/>
+                                        {/* <input type="button"value="Yes" onClick={this.nextQuestion}/>
+                                        <input type="button"value="No"/> */}
                                         </p>
                                     <span className="time_date"> 11:01 AM | June 9</span>
                                 </div>
                         </div>
                         {/*outgoing messages*/
 
-                            this.createRender()
+
+                            this.props.allMessages.map(item=>{
+                                if(item.message===''){
+                                    return <OutgoingMessages question={item}/>;
+                                }else if(item.message!==''){
+                                return [
+                                    <OutgoingMessages question={item}/>,
+                                    <IncomingMessages messages={item}/>
+                                    ]
+                                }else{
+                                    return this.warning();
+                                }
+                            })
 
                         }
 
-                        <div className="sendForm">
+                        <div className="sendForm" onClick={this.sendForm}>
                             <input type="button" value="Send Form"/>
                         </div>
                     </div>
                     {/* Type message into text field */ }
-                    <TypeMessage message={'sendSomething'} addMessage={this.addMessage}/>
+                    <TypeMessage message={'sendSomething'} warning={this.warning} addMessage={this.addMessage} nextQuestion={this.nextQuestion}/>
                 </div>
             </div>
         </div>
@@ -120,7 +159,9 @@ render(){
 const mapStateToProps=state=>({
     formId:state.formId,
     apiKey:state.apiKey,
-    saveMessage:state.saveMessage,
-    saveFormQuestions:state.saveFormQuestions
+    saveFormQuestions:state.saveFormQuestions,
+    count:state.count,
+    allMessages:state.allMessages,
+    username:state.username
 })
 export default connect(mapStateToProps)(MainContainer);
