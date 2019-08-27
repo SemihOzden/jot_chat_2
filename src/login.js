@@ -1,48 +1,49 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
-class Login extends React.Component{
+class Login extends React.Component {
+  componentDidMount() {
+    // Api key has been initialied
+    // eslint-disable-next-line react/prop-types
+    const { apiKey } = this.props;
+    window.JF.initialize({ apiKey: apiKey });
+    var x = this;
 
 
-    componentDidMount(){
-        //Api key has been initialied
-        let apiKey=this.props.apiKey;
-        window.JF.initialize({apiKey:apiKey});
-        var x=this;
+    // Form questions are saved into redux store
+    window.JF.getFormQuestions(this.props.formId, (response) => {
+      Object.entries(response).map(([key, value], i) => {
+        value.message = '';
+        return x.props.dispatch({ type: 'SAVE_FORM_QUESTIONS', formQuestion: value });
+      });
 
+      console.log('props save form questions', x.props.saveFormQuestions);
+    }, (error) => {
+      console.log(error);
+    });
 
-        //Form questions are saved into redux store
-        window.JF.getFormQuestions(this.props.formId, function(response){
+    window.JF.getUser((response) => {
+      return x.props.dispatch({ type: 'SAVE_USERNAME', getUsername: response.username });
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
-                Object.entries(response).map(([key,value],i)=>{
-                    value.message='';
-                    return x.props.dispatch({type:"SAVE_FORM_QUESTIONS",formQuestion:value});
-
-                })
-
-               console.log("props save form questions",x.props.saveFormQuestions);
-        },function(error){
-            console.log(error);
-        });
-
-        window.JF.getUser(function(response){
-            return x.props.dispatch({type:"SAVE_USERNAME",getUsername:response.username});
-        },function(error){
-            console.log(error);
-        });
-    }
-
-    render(){
-        return(
-            <div className="initializeForm"></div>
-        );
-    }
+  render() {
+    return (
+      <div className="initializeForm" />
+    );
+  }
 }
-const mapStateToProps=state=>({
-    formId:state.formId,
-    apiKey:state.apiKey,
-    saveFormQuestions:state.saveFormQuestions
-})
+const mapStateToProps = state => ({
+  formId: state.formId,
+  apiKey: state.apiKey,
+  saveFormQuestions: state.saveFormQuestions
+});
 
 export default connect(mapStateToProps)(Login);
