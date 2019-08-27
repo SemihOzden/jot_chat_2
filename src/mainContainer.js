@@ -50,7 +50,12 @@ async addMessage(message){
     console.log("message in addMessage Func",message);
 //     //Firstly message is added into related question field's message field
         await this.updateQuestionMessage(message);
-        await this.saveMessageOfAddMessage();
+        if(this.props.count<this.props.saveFormQuestions.length){
+            await this.saveMessageOfAddMessage();
+        }else{
+            console.log("soru bitti");
+        }
+
         //Next question is added into allMessages redux store
         this.scrollToBottom();
 }
@@ -71,17 +76,91 @@ sendForm=()=>{
                 //submissions[qid]=this.props.allMessages[i].message;
                 let message=this.props.allMessages[i].message;
                 //'3': { first: 'berkay', last: 'test' },
-
                 submitMessage[qid] = message;
-                // send it out
-
-
 
             }else if(this.props.allMessages[i].type==="control_fullname"){
-                 let qid=this.props.allMessages[i].qid;
+                let qid=this.props.allMessages[i].qid;
                 let divideFullname=this.props.allMessages[i].message.split(" ");
-
                 submitMessage[qid] ={first:divideFullname[0],last:divideFullname[1]};
+
+            }else if(this.props.allMessages[i].type==="control_dropdown"){
+                let qid=this.props.allMessages[i].qid;
+                for(var l=0;l<this.props.saveFormQuestions.length;l++){
+                    if(this.props.allMessages[i].order===this.props.saveFormQuestions[l].order){
+                        //Divide options according to |
+                        let divideOptions=this.props.saveFormQuestions[l].options.split("|");
+                        console.log("gelen divide optionssss",divideOptions,"gelen all Messages option"+this.props.allMessages[i].message);
+                        for(var k=0;k<divideOptions.length;k++){
+                            if(divideOptions.indexOf(divideOptions[k])===parseInt(this.props.allMessages[i].message)){
+                                console.log("eşiti yakaladım sen "+divideOptions[k]+"seçmişsin","allmessages message"+this.props.allMessages[i].message);
+                                //send selected options into submitMessage to send jotform
+                                submitMessage[qid]=divideOptions[k];
+                            }else{
+                                console.log("eşiti yakalayamadım"+this.props.allMessages[i].message);
+                            }
+                        }
+                    }
+                }
+            }else if(this.props.allMessages[i].type==="control_radio"){
+                let qid=this.props.allMessages[i].qid;
+                for(var m=0;m<this.props.saveFormQuestions.length;m++){
+                    if(this.props.allMessages[i].order===this.props.saveFormQuestions[m].order){
+                        //Divide options according to |
+                        let divideOptions=this.props.saveFormQuestions[m].options.split("|");
+                        console.log("gelen divide optionssss",divideOptions,"gelen all Messages option"+this.props.allMessages[i].message);
+                        for(var n=0;n<divideOptions.length;n++){
+                            if(divideOptions.indexOf(divideOptions[n])===parseInt(this.props.allMessages[i].message)){
+                                console.log("eşiti yakaladım sen "+divideOptions[n]+"seçmişsin","allmessages message"+this.props.allMessages[i].message);
+                                //send selected options into submitMessage to send jotform
+                                submitMessage[qid]=divideOptions[n];
+                            }else{
+                                console.log("eşiti yakalayamadım"+this.props.allMessages[i].message);
+                            }
+                        }
+                    }
+                }
+            }else if(this.props.allMessages[i].type==='control_textarea'){
+                let qid=this.props.allMessages[i].qid;
+
+                let message=this.props.allMessages[i].message;
+                submitMessage[qid] = message;
+
+            }else if(this.props.allMessages[i].type==='control_datetime'){
+                let qid=this.props.allMessages[i].qid;
+
+                //Divide datetime according to -
+                let divideOptions=this.props.allMessages[i].message.split("-");
+
+                //send selected options into submitMessage to send jotform
+                submitMessage[qid]={month:divideOptions[0],day:divideOptions[1],year:divideOptions[2]};
+
+            }else if(this.props.allMessages[i].type==='control_checkbox'){
+                let qid=this.props.allMessages[i].qid;
+                //Divide datetime according to -
+                let divideMessageOptions=this.props.allMessages[i].message.split(",");
+                let sendCheckBoxArray=[];
+
+                for(var y=0;y<this.props.saveFormQuestions.length;y++){
+                    if(this.props.allMessages[i].order===this.props.saveFormQuestions[y].order){
+                        //Divide options according to |
+                        let divideOptions=this.props.saveFormQuestions[y].options.split("|");
+                        console.log("gelen multiple Checkbox options",divideOptions,"gelen all Messages option"+this.props.allMessages[i].message);
+                         for(var z=0;z<divideOptions.length;z++){
+
+                           for(var t=0;t<divideOptions.length;t++){
+                                 if(divideOptions.indexOf(divideOptions[z])===parseInt(divideMessageOptions[t])){
+                                    sendCheckBoxArray.push(divideOptions[z]);
+                                     console.log('eşleşen multiple checkboxlar'+divideOptions[z])
+                                 }else{
+                                     console.log('multiple checkbox eşleşmedi')
+                                 }
+
+                             }
+                             submitMessage[qid]=sendCheckBoxArray;
+                         }
+                    }
+                }
+
             }
         }
         let xhr = new XMLHttpRequest();

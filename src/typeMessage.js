@@ -18,15 +18,15 @@ class TypeMessage extends Component{
     handleSubmit=(event)=>{
         event.preventDefault();
         if(this.props.allMessages.length===0 && this.state.content!=='' && (this.state.content==='yes' || this.state.content==='Yes' || this.state.content==='YES') ){
+
             console.log('tıklandı');
             this.props.nextQuestion();
             this.setState({content:''});
         }else if(this.state.content!=='' && this.props.allMessages.length!==0){
-        this.props.addMessage(this.state);
-        this.setState({content:''});
+
+            this.props.addMessage(this.state);
+            this.setState({content:''});
         }
-
-
     }
 
     render(){
