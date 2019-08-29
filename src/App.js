@@ -6,11 +6,12 @@ import Login from './login';
 function App() {
   return (
     <div className="App">
-      <Login />
-      <MainContent />
+      <Login/>
+      <MainContent/>
     </div>
   );
 }
+
 
 
 export default (App);

@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "immutability-helper": "^3.0.1",
     "react": "^16.8.6",
-    "react-addons-update": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
@@ -31,9 +29,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-jotform": "^1.0.34"
   }
 }

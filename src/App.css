@@ -165,21 +165,13 @@ img {
   width: 100%;
 }
 
-.sent_msg>p {
+.sent_msg p {
   background: #fd7300 none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0;
   color: #fff;
-  padding: 13px 10px 13px 12px;
-  width: 100%;
-}
-
-.options_P{
-  background: #fd7300 none repeat scroll 0 0;
-  font-size: 14px;
-  margin: 0;
-  color: #fff;
+  padding: 5px 10px 5px 12px;
   width: 100%;
 }
 
@@ -227,7 +219,7 @@ img {
 
 .msg_history {
   height: 516px;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 
 .nextButton{
@@ -247,4 +239,3 @@ img {
   float: right;
 
 }
-.options_P{}
