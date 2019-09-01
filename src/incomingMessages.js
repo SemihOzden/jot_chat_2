@@ -4,7 +4,7 @@ import React from 'react';
 export const IncomingMessages = ({ messages }) => (
   <div className="incoming_msg" key={messages.order}>
     <div className="incoming_msg_img"> <img
-      src="https://ptetutorials.com/images/user-profile.png"
+      src="userSend.png"
       alt="sunil"
     />
     </div>

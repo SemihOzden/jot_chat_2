@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable radix */
@@ -11,7 +12,8 @@ import TypeMessage from './typeMessage';
 import { OutgoingMessages } from './outgoingMessages';
 import { IncomingMessages } from './incomingMessages';
 import { connect } from 'react-redux';
-import { WarningMessages } from './warningMessages';
+import { YesNoMessages } from './yesNoMessages';
+import SendFormContainer from './sendFormContainer';
 
 
 class MainContainer extends Component {
@@ -29,8 +31,14 @@ updateCount=() => {
 saveMessageDispatch=() => {
   return this.props.dispatch({ type: 'SAVE_MESSAGE', nexFormQuestion: this.props.saveFormQuestions[this.props.count] });
 }
+writeYes=(message) => {
+  // eslint-disable-next-line prefer-const
+  let contentMessage = message.content;
+  return this.props.dispatch({ type: 'YESNO_MESSAGE', yesOrNoMessage: contentMessage });
+}
 
-async nextQuestion() {
+async nextQuestion(message) {
+  await this.writeYes(message);
   await this.updateCount();
   await this.saveMessageDispatch();
 }
@@ -66,12 +74,6 @@ async addMessage(message) {
   this.scrollToBottom();
 }
 // Text added to question's message properties
-
-warning=(warningMessage) => {
-  const renderWarningElements = [];
-  renderWarningElements.push(<WarningMessages warnMessage={warningMessage} />);
-  return renderWarningElements;
-}
 
 sendForm=() => {
   var submitMessage = {};
@@ -162,6 +164,7 @@ sendForm=() => {
     }
   }
   const xhr = new XMLHttpRequest();
+  console.log(submitMessage);
   xhr.open('POST', `https://api.jotform.com/form/${this.props.formId}/submissions?apiKey=${this.props.apiKey}`);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send(JSON.stringify(submitMessage));
@@ -182,7 +185,7 @@ render() {
                 </div>
                 <div className="sent_msg">
                   <p>
-                                        Hello {this.props.username.toUpperCase()}. Welcome to Jorform Chatbot
+                    Hello {this.props.username.toUpperCase()}. Welcome to JotForm Chatbot
                   </p>
                   <span className="time_date"> 11:01 AM | June 9</span>
                 </div>
@@ -193,35 +196,38 @@ render() {
                 </div>
                 <div className="sent_msg">
                   <p>
-                                        Would you like to fullfill the form?  YES OR NO ?
+                      Would you like to fullfill the form?  YES OR NO ?
 
-                    {/* <input type="button"value="Yes" onClick={this.nextQuestion}/>
-                                        <input type="button"value="No"/> */}
                   </p>
                   <span className="time_date"> 11:01 AM | June 9</span>
                 </div>
               </div>
               {/* outgoing messages */
+                <YesNoMessages messages={this.props.yesNoMessage} />
+                }
+              {
 
+                this.props.allMessages.map((item) => {
+                  if (this.props.yesNoMessage.toUpperCase() === 'NO') {
+                    return '';
+                  } else {
+                    if (item.message === '') {
+                        return <OutgoingMessages question={item} />;
+                    } else if (item.message !== '') {
+                    return [
+                      <OutgoingMessages question={item} />,
+                      <IncomingMessages messages={item} />
+                        ];
+                    }
+                        return this.warning();
+                  }
+                })
 
-                            this.props.allMessages.map((item) => {
-                                if (item.message === '') {
-                                    return <OutgoingMessages question={item} />;
-                                } else if (item.message !== '') {
-                                return [
-                                  <OutgoingMessages question={item} />,
-                                  <IncomingMessages messages={item} />
-                                    ];
-                                }
-                                    return this.warning();
-                            })
+              }
+              <SendFormContainer sendForm={this.sendForm} />
 
-                        }
-
-              <div className="sendForm" onClick={this.sendForm}>
-                <input type="button" value="Send Form" />
-              </div>
             </div>
+
             {/* Type message into text field */ }
             <TypeMessage
               message="sendSomething" warning={this.warning} addMessage={this.addMessage}
@@ -240,6 +246,7 @@ const mapStateToProps = state => ({
   saveFormQuestions: state.saveFormQuestions,
   count: state.count,
   allMessages: state.allMessages,
-  username: state.username
+  username: state.username,
+  yesNoMessage: state.yesNoMessage
 });
 export default connect(mapStateToProps)(MainContainer);

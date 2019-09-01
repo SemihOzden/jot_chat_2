@@ -1,3 +1,7 @@
+/* eslint-disable max-len */
+/* eslint-disable react/prop-types */
+
+/* eslint-disable no-console */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -15,9 +19,9 @@ class TypeMessage extends Component {
 
     handleSubmit=(event) => {
       event.preventDefault();
-      if (this.props.allMessages.length === 0 && this.state.content !== '' && (this.state.content === 'yes' || this.state.content === 'Yes' || this.state.content === 'YES')) {
+      if (this.props.allMessages.length === 0 && this.state.content !== '' && (this.state.content === 'yes' || this.state.content === 'Yes' || this.state.content === 'YES' || this.state.content === 'no' || this.state.content === 'No' || this.state.content === 'NO')) {
         console.log('tıklandı');
-        this.props.nextQuestion();
+        this.props.nextQuestion(this.state);
         this.setState({ content: '' });
       } else if (this.state.content !== '' && this.props.allMessages.length !== 0) {
         this.props.addMessage(this.state);
@@ -29,8 +33,6 @@ class TypeMessage extends Component {
       return (
         <div className="type_msg">
           <div className="input_msg_write">
-
-
             <input
               type="text" className="write_msg" value={this.state.content}
               onChange={this.handleChange} placeholder={this.props.message}

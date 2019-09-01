@@ -14,7 +14,8 @@ const initialState = {
   allMessages: [],
   saveFormQuestions: [],
   count: 0,
-  username: ''
+  username: '',
+  yesNoMessage: ''
 };
 
 function reducer(state = initialState, action) {
@@ -24,6 +25,11 @@ function reducer(state = initialState, action) {
         ...state,
         allMessages: [...state.allMessages, action.nexFormQuestion]
 
+      };
+    case 'YESNO_MESSAGE':
+      return {
+        ...state,
+        yesNoMessage: action.yesOrNoMessage
       };
     case 'SAVE_FORM_QUESTIONS':
       return {
