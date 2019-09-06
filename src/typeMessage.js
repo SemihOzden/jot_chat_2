@@ -112,30 +112,52 @@ class TypeMessage extends Component {
           const radioOption = this.state.content;
           const divideOptions = question.options.split('|');
 
-          if (Number(radioOption)) {
-            if (radioOption.length > 1) {
-              window.alert('birden fazla değer var');
+
+          // If there are options more than 1
+          if (radioOption.length > 1) {
+            window.alert('birden fazla değer var');
+            if (radioOption.search(',') !== -1) {
+              var saveMultipleOptions = { content: '' };
+              var saveMultipleOpt = saveMultipleOptions;
+              const divideRadioOption = radioOption.split(',');
+              window.alert('-1 yes Only comma used');
               this.setState({ content: '' });
-            } else {
-              window.alert('bir değer var');
-              this.setState({ content: '' });
-              divideOptions.map((item) => {
-                if (Number(radioOption) === divideOptions.indexOf(item)) {
-                  this.props.addMessage(this.state);
-                  return ('Yes you enterered appropriate number');
-                // eslint-disable-next-line no-else-return
-                } else {
-                  // add this.props.addWarningMessage() props here to send alert to main field in main Container component
-                  window.alert('Please enter appropriate option');
-                  return ('Please write only appropriate option number');
+              for (var i = 0; i < divideOptions.length; i++) {
+                console.log('ilk', divideOptions.indexOf(divideOptions[i]));
+                for (var k = 0; k < divideRadioOption.length; k++) {
+                  if (Number(divideRadioOption[k]) === divideOptions.indexOf(divideOptions[i])) {
+                    if (i === divideOptions.length - 1) {
+                      saveMultipleOpt.content = `${saveMultipleOpt.content + divideOptions.indexOf(divideOptions[i])}`;
+                    } else {
+                      saveMultipleOpt.content = `${saveMultipleOpt.content + divideOptions.indexOf(divideOptions[i])},`;
+                    }
+                  } else {
+                    // window.alert('Only related numbers can be added be careful');
+                    continue;
+                  }
                 }
-              });
+                console.log('saveMultiple Options', saveMultipleOpt);
+              }
+              console.log(saveMultipleOpt);
+              this.props.addMessage(saveMultipleOpt);
+            } else {
+              window.alert('-5 Please use only comma (,) to devide options');
             }
           } else {
-            window.alert('Please enter only number');
-            this.setState({ content: '' });
-          }
+            // If there is only 1 option
+            window.alert('-6 bir değer var');
 
+            divideOptions.map((item) => {
+              if (Number(radioOption) === divideOptions.indexOf(item)) {
+                this.props.addMessage(this.state);
+                return ('-7 Yes you enterered appropriate number');
+              // eslint-disable-next-line no-else-return
+              } else {
+                window.alert('-8 Please enter appropriate option');
+                return ('Please write only appropriate option number');
+              }
+            });
+          }
         } else {
           this.props.addMessage(this.state);
           this.setState({ content: '' });

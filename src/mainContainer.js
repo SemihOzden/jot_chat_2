@@ -14,7 +14,6 @@ import { OutgoingMessages } from './outgoingMessages';
 import { IncomingMessages } from './incomingMessages';
 import { connect } from 'react-redux';
 import { YesNoMessages } from './yesNoMessages';
-import SendFormContainer from './sendFormContainer';
 
 var tempDate = new Date();
 var getHour = '';
@@ -231,7 +230,7 @@ render() {
                 })
 
               }
-              <SendFormContainer sendForm={this.sendForm} />
+
 
             </div>
 
