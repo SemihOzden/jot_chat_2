@@ -1,7 +1,15 @@
+/* eslint-disable prefer-template */
 /* eslint-disable no-else-return */
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
 
+var tempDate = new Date();
+var getHour = '';
+if (Number(tempDate.getHours()) >= 13) {
+  getHour = tempDate.getHours() + ':' + tempDate.getMinutes() + ' PM';
+} else {
+  getHour = tempDate.getHours() + ':' + tempDate.getMinutes() + ' AM';
+}
 // eslint-disable-next-line react/prop-types
 export const YesNoMessages = ({ messages }) => {
   if (messages.toUpperCase() === 'YES') {
@@ -16,7 +24,7 @@ export const YesNoMessages = ({ messages }) => {
           <div className="received_withd_msg">
             <p>{messages}</p>
 
-            <span className="time_date"> 11:01 AM | June 9</span>
+            <span className="time_date"> {getHour}</span>
 
           </div>
         </div>
@@ -35,7 +43,7 @@ export const YesNoMessages = ({ messages }) => {
             <div className="received_withd_msg">
               <p>{messages}</p>
 
-              <span className="time_date"> 11:01 AM | June 9</span>
+              <span className="time_date"> {getHour}</span>
 
             </div>
           </div>
@@ -48,7 +56,7 @@ export const YesNoMessages = ({ messages }) => {
             <p>
                 Thank you for your answer. Please refresh the page to fullfill the form.
             </p>
-            <span className="time_date"> 11:01 AM | June 9</span>
+            <span className="time_date"> {getHour}</span>
           </div>
         </div>
       </div>

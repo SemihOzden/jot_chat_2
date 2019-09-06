@@ -1,15 +1,13 @@
 /* eslint-disable import/first */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import * as serviceWorker from './serviceWorker';
-import update from 'immutability-helper';
+// import ReactDOM from 'react-dom'; //
+// import './index.css';
+// import * as serviceWorker from './serviceWorker'; //
+import ProviderComponent from './providerComponent';
 
 const initialState = {
-  formId: '92112257961961',
+  formId: '92482759536976',
   apiKey: '7fcefff03d226f77300b4f82a5311166',
   allMessages: [],
   saveFormQuestions: [],
@@ -18,64 +16,31 @@ const initialState = {
   yesNoMessage: ''
 };
 
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case 'SAVE_MESSAGE':
-      return {
-        ...state,
-        allMessages: [...state.allMessages, action.nexFormQuestion]
+/*
+"main": "./lib/cjs/index.js",
+  "module":"./lib/esm/index.js",
+  */
 
-      };
-    case 'YESNO_MESSAGE':
-      return {
-        ...state,
-        yesNoMessage: action.yesOrNoMessage
-      };
-    case 'SAVE_FORM_QUESTIONS':
-      return {
-        ...state,
-        saveFormQuestions: [...state.saveFormQuestions, action.formQuestion]
-      };
-    case 'UPDATE_QUESTIONS_MESSAGE':
-      const allMessagesLastIndex = state.allMessages.indexOf(state.allMessages[state.allMessages.length - 1]);
-      return update(state, {
-        allMessages: {
-          [allMessagesLastIndex]: {
-            message: { $set: action.message }
-          }
-        },
-        count: {
-          $set: state.count + 1
-        }
+// ***scripts */
+// "build": "rollup -c rollup.config.js",
+//     "prepublishOnly": "npm run build"
 
-      });
-    case 'SAVE_USERNAME':
-      return {
-        ...state,
-        username: action.getUsername
-      };
-    case 'UPDATE_COUNT_IN_NEXT_QUES':
-      return update(state, {
-        count: {
-          $set: action.comingCount + 2
-        }
-      });
+// class JotChat extends React.Component {
+//   render() {
+//     return (
+//       <ProviderComponent initialState={initialState} />
+//     );
+//   }
+// }
+// export default JotChat;
+ReactDOM.render(<ProviderComponent initialState={initialState} />, document.getElementById('root'));
 
-    default:
-      return state;
-  }
-}
-
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
-  , document.getElementById('root')
-);
+// ReactDOM.render(
+//   <ProviderComponent initialState={initialState} />
+//   , document.getElementById('root')
+// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
+// serviceWorker.register(); //

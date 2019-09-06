@@ -1,7 +1,7 @@
 {
   "name": "jot_chat_2",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.3.3",
+  "main": "./src/index.js",
   "dependencies": {
     "immutability-helper": "^3.0.1",
     "react": "^16.8.6",
@@ -14,8 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,7 +32,21 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "7.5.5",
+    "@babel/cli": "7.5.5",
+    "@babel/plugin-proposal-export-default-from": "7.5.2",
+    "@babel/plugin-proposal-export-namespace-from": "7.5.2",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-react": "7.0.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-jotform": "^1.0.34"
+    "eslint-config-jotform": "^1.0.34",
+    "rollup": "1.20.3",
+    "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-postcss": "2.0.3",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-url": "2.2.2"
   }
 }

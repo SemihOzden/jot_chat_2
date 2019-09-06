@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 /* eslint-disable no-else-return */
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -15,7 +16,13 @@ import { connect } from 'react-redux';
 import { YesNoMessages } from './yesNoMessages';
 import SendFormContainer from './sendFormContainer';
 
-
+var tempDate = new Date();
+var getHour = '';
+if (Number(tempDate.getHours()) >= 13) {
+  getHour = tempDate.getHours() + ':' + tempDate.getMinutes() + ' PM';
+} else {
+  getHour = tempDate.getHours() + ':' + tempDate.getMinutes() + ' AM';
+}
 class MainContainer extends Component {
   constructor(props) {
     super(props);
@@ -185,9 +192,9 @@ render() {
                 </div>
                 <div className="sent_msg">
                   <p>
-                    Hello {this.props.username.toUpperCase()}. Welcome to JotForm Chatbot
+                    <span className="outgoing_msg_question">Hello {this.props.username.toUpperCase()}. Welcome to JotForm Chatbot</span>
                   </p>
-                  <span className="time_date"> 11:01 AM | June 9</span>
+                  <span className="time_date"> {getHour}</span>
                 </div>
               </div>
               <div className="outgoing_msg">
@@ -196,10 +203,10 @@ render() {
                 </div>
                 <div className="sent_msg">
                   <p>
-                      Would you like to fullfill the form?  YES OR NO ?
+                    <span className="outgoing_msg_question">Would you like to fullfill the form?  YES OR NO ?</span>
 
                   </p>
-                  <span className="time_date"> 11:01 AM | June 9</span>
+                  <span className="time_date"> {getHour}</span>
                 </div>
               </div>
               {/* outgoing messages */
@@ -230,7 +237,8 @@ render() {
 
             {/* Type message into text field */ }
             <TypeMessage
-              message="sendSomething" warning={this.warning} addMessage={this.addMessage}
+              message="sendSomething" warning={this.warning} sendForm={this.sendForm}
+              addMessage={this.addMessage}
               nextQuestion={this.nextQuestion}
             />
           </div>
