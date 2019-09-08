@@ -21,6 +21,11 @@ class ProviderComponent extends Component {
           allMessages: [...state.allMessages, action.nexFormQuestion]
 
         };
+      case 'SEND_FORM_INFO':
+        return {
+          ...state,
+          sendingMessage: action.sendingMessage
+        };
       case 'YESNO_MESSAGE':
         return {
           ...state,

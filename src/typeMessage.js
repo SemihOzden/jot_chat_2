@@ -14,13 +14,15 @@ class TypeMessage extends Component {
     this.state = {
       content: ''
     };
+    this.handleSendForm = this.handleSendForm.bind(this);
   }
 
     handleChange=(event) => {
       this.setState({ content: event.target.value });
     }
-    handleSendForm=() => {
-      this.props.sendForm();
+    async handleSendForm() {
+      await this.props.sendForm();
+      await this.props.sendFormInfo();
     }
 
     // eslint-disable-next-line max-statements

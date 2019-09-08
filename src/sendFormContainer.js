@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-useless-constructor */
 
@@ -13,14 +14,21 @@ class SendFormContainer extends Component {
       this.props.sendForm();
     }
     render() {
-      if (this.props.saveFormQuestions.length === this.props.count) {
+      if (this.props.saveFormQuestions.length === this.props.count && this.props.sendingMessage === '') {
         return (
           <div className="sendForm">
             <input type="button" value="Send Form" onClick={this.handleSendForm} />
           </div>
         );
+      } else if (this.props.saveFormQuestions.length === this.props.count && this.props.sendingMessage !== '') {
+        return (
+          <div className="sendForm">
+            <input type="button" value="Send Form" disabled />
+          </div>
+        );
+      } else {
+        return '';
       }
-      return '';
     }
 }
 
@@ -31,6 +39,7 @@ const mapStateToProps = state => ({
   count: state.count,
   allMessages: state.allMessages,
   username: state.username,
-  yesNoMessage: state.yesNoMessage
+  yesNoMessage: state.yesNoMessage,
+  sendingMessage: state.sendingMessage
 });
 export default connect(mapStateToProps)(SendFormContainer);

@@ -13,7 +13,8 @@ const initialState = {
   saveFormQuestions: [],
   count: 0,
   username: '',
-  yesNoMessage: ''
+  yesNoMessage: '',
+  sendingMessage: ''
 };
 
 /*

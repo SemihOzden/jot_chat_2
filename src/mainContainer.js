@@ -14,6 +14,8 @@ import { OutgoingMessages } from './outgoingMessages';
 import { IncomingMessages } from './incomingMessages';
 import { connect } from 'react-redux';
 import { YesNoMessages } from './yesNoMessages';
+import FinishMessage from './finishMessage';
+import SendFormMessage from './sendFormMessage';
 
 var tempDate = new Date();
 var getHour = '';
@@ -29,6 +31,11 @@ class MainContainer extends Component {
     this.nextQuestion = this.nextQuestion.bind(this);
     this.addMessage = this.addMessage.bind(this);
   }
+
+sendFormInfo=() => {
+  console.log('Send Form infoya geldik.');
+  return this.props.dispatch({ type: 'SEND_FORM_INFO', sendingMessage: 'You have sent your form successfully.' });
+}
 
 // Next Question is shown in the screen
 updateCount=() => {
@@ -230,14 +237,18 @@ render() {
                 })
 
               }
-
-
+              {/* Finish messages */
+                <FinishMessage />
+              }
+              {/* Send Form Message */
+                <SendFormMessage />
+              }
             </div>
 
             {/* Type message into text field */ }
             <TypeMessage
               message="sendSomething" warning={this.warning} sendForm={this.sendForm}
-              addMessage={this.addMessage}
+              addMessage={this.addMessage} sendFormInfo={this.sendFormInfo}
               nextQuestion={this.nextQuestion}
             />
           </div>
