@@ -2,6 +2,8 @@
 /* eslint-disable no-else-return */
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
+import JotPencil from './jot_pencil.png';
+import UserImage from './userSend.png';
 
 var tempDate = new Date();
 var getHour = '';
@@ -16,7 +18,7 @@ export const YesNoMessages = ({ messages }) => {
     return (
       <div className="incoming_msg">
         <div className="incoming_msg_img"> <img
-          src="userSend.png"
+          src={UserImage}
           alt="sunil"
         />
         </div>
@@ -35,7 +37,7 @@ export const YesNoMessages = ({ messages }) => {
       <div>
         <div className="incoming_msg">
           <div className="incoming_msg_img"> <img
-            src="userSend.png"
+            src={UserImage}
             alt="sunil"
                     />
           </div>
@@ -50,7 +52,7 @@ export const YesNoMessages = ({ messages }) => {
         </div>
         <div className="outgoing_msg" >
           <div className="outgoing_msg_img">
-            <img src="jot_pencil.png" alt="pencil" />
+            <img src={JotPencil} alt="pencil" />
           </div>
           <div className="sent_msg">
             <p>

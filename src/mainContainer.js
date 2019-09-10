@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { YesNoMessages } from './yesNoMessages';
 import FinishMessage from './finishMessage';
 import SendFormMessage from './sendFormMessage';
+import JotPencil from './jot_pencil.png';
 
 var tempDate = new Date();
 var getHour = '';
@@ -194,7 +195,7 @@ render() {
             <div className="msg_history" ref={this.heightRef}>
               <div className="outgoing_msg">
                 <div className="outgoing_msg_img">
-                  <img src="jot_pencil.png" alt="pencil" />
+                  <img src={JotPencil} alt="pencil" />
                 </div>
                 <div className="sent_msg">
                   <p>
@@ -205,7 +206,7 @@ render() {
               </div>
               <div className="outgoing_msg">
                 <div className="outgoing_msg_img">
-                  <img src="jot_pencil.png" alt="pencil" />
+                  <img src={JotPencil} alt="pencil" />
                 </div>
                 <div className="sent_msg">
                   <p>

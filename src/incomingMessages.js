@@ -1,5 +1,6 @@
 /* eslint-disable prefer-template */
 import React from 'react';
+import UserImage from './userSend.png';
 
 // eslint-disable-next-line react/prop-types
 var tempDate = new Date();
@@ -13,7 +14,7 @@ if (Number(tempDate.getHours()) >= 13) {
 export const IncomingMessages = ({ messages }) => (
   <div className="incoming_msg" key={messages.order}>
     <div className="incoming_msg_img"> <img
-      src="userSend.png"
+      src={UserImage}
       alt="sunil"
     />
     </div>

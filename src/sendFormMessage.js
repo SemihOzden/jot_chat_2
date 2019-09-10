@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { connect } from 'react-redux';
+import JotPencil from './jot_pencil.png';
 
 var tempDate = new Date();
 var getHour = '';
@@ -23,7 +24,7 @@ class SendFormMessage extends React.Component {
       return (
         <div className="outgoing_msg">
           <div className="outgoing_msg_img">
-            <img src="jot_pencil.png" alt="pencil" />
+            <img src={JotPencil} alt="pencil" />
           </div>
           <div className="sent_msg">
             <p>

@@ -1,6 +1,7 @@
 /* eslint-disable prefer-template */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import JotPencil from './jot_pencil.png';
 
 export const OutgoingMessages = ({ question }) => {
   var tempDate = new Date();
@@ -17,7 +18,7 @@ export const OutgoingMessages = ({ question }) => {
       return (
         <div className="outgoing_msg" key={question.order}>
           <div className="outgoing_msg_img">
-            <img src="jot_pencil.png" alt="pencil" />
+            <img src={JotPencil} alt="pencil" />
           </div>
           <div className="sent_msg">
             <p>
@@ -31,7 +32,7 @@ export const OutgoingMessages = ({ question }) => {
       return (
         <div className="outgoing_msg" key={question.order}>
           <div className="outgoing_msg_img">
-            <img src="jot_pencil.png" alt="pencil" />
+            <img src={JotPencil} alt="pencil" />
           </div>
           <div className="sent_msg">
             <p>
@@ -45,7 +46,7 @@ export const OutgoingMessages = ({ question }) => {
       return (
         <div className="outgoing_msg" key={question.order}>
           <div className="outgoing_msg_img">
-            <img src="jot_pencil.png" alt="pencil" />
+            <img src={JotPencil} alt="pencil" />
           </div>
           <div className="sent_msg">
             <p>
@@ -61,7 +62,7 @@ export const OutgoingMessages = ({ question }) => {
     return (
       <div className="outgoing_msg" key={question.order}>
         <div className="outgoing_msg_img">
-          <img src="jot_pencil.png" alt="pencil" />
+          <img src={JotPencil} alt="pencil" />
         </div>
         <div className="sent_msg">
           <p key={question.order}>
@@ -79,7 +80,7 @@ export const OutgoingMessages = ({ question }) => {
     return (
       <div className="outgoing_msg" key={question.order}>
         <div className="outgoing_msg_img">
-          <img src="jot_pencil.png" alt="pencil" />
+          <img src={JotPencil} alt="pencil" />
         </div>
         <div className="sent_msg">
           <p key={question.order}>
@@ -97,7 +98,7 @@ export const OutgoingMessages = ({ question }) => {
     return (
       <div className="outgoing_msg" key={question.order}>
         <div className="outgoing_msg_img">
-          <img src="jot_pencil.png" alt="pencil" />
+          <img src={JotPencil} alt="pencil" />
         </div>
         <div className="sent_msg">
           <p key={question.order}>
@@ -115,7 +116,7 @@ export const OutgoingMessages = ({ question }) => {
   return (
     <div className="outgoing_msg" key={question.order}>
       <div className="outgoing_msg_img">
-        <img src="jot_pencil.png" alt="pencil" />
+        <img src={JotPencil} alt="pencil" />
       </div>
       <div className="sent_msg">
         <p>
