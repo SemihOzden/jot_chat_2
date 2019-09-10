@@ -6,7 +6,7 @@ import './index.css';
 import ProviderComponent from './providerComponent';
 
 const initialState = {
-  formId: '****Your jotform-form ID*****',
+  formId: '****Your jotform-form ID****',
   apiKey: '****Your jotform-apiKey****',
   allMessages: [],
   saveFormQuestions: [],
