@@ -1,68 +1,83 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Jotform Chatbot
 
-## Available Scripts
+By importing one react component `JotChat`, you can use it as chatbot in your projects.
 
-In the project directory, you can run:
+## Install
 
-### `npm start`
+`npm install jotform_chatbot`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+or
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+` yarn add jotform_chatbot `
 
-### `npm test`
+## Usage
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.  Include jotform javascript api into your main html page.
+* `<script src="https://js.jotform.com/JotForm.js"></script> `
+2.  Include following bootstrap and scripts into your main html page between `<head>` tags.
 
-### `npm run build`
+```
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
+    rel="stylesheet"
+>
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3.  You should import ` node_modules/jot_chat_2/lib/cjs/index.css ` from your node modules. It is my css file.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Example usage
+```
+import React from 'react';
+import JotChat from 'jotform_chatbot';
+import '../node_modules/jot_chat_2/lib/cjs/index.css'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function App() {
 
-### `npm run eject`
+  const initialState = {
+    formId: 'Your_jotform_form_id',
+    apiKey: 'your_jotform_apiKey'
+  };
+  return (
+    <div className="App">
+      <JotChat initialState={initialState}/>
+    </div>
+  );
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+export default App;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+## Properties
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+You should use following properties to use this jotform_chatbot properly.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| Properties        | Type           | Required  | Default value | Description |
+| -------------     |:-------------: | -----:    | -----:        | ---------------------------------------------:
+| formId            | string         |   yes     |   not         | Related form Id from your jotform forms|
+| apiKey            | string         |   yes     |   not         | Special key defined in your jotform profile |
 
-## Learn More
+## Specificially used jotform question types
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+I have been using 7 different question types in my `jotform_chatbot` project.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+| Question Types        |
+| -------------     |
+| formId            |
+| control_name |
+| control_email |
+| control_dropdown |
+| control_textarea |
+| control_datetime (dd-mm-yyyy) |
+| control_radio |
+| control_checkbox           |
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Other question types will be added. They are in the progress.
 
-### Analyzing the Bundle Size
+## Contributing
+Feel free to send pull request.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Licence
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+MIT [semihOzden](https://github.com/SemihOzden)

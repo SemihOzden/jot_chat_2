@@ -1,7 +1,18 @@
 {
-  "name": "jot_chat_2",
-  "version": "0.4.5",
+  "name": "jotform_chatbot",
+  "version": "0.0.7",
   "main": "index.js",
+  "license": "MIT",
+  "author": "semihozden",
+  "keywords": [
+    "jotform",
+    "chatbot",
+    "fulfill form interactively"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SemihOzden/jot_chat_2.git"
+  },
   "dependencies": {
     "immutability-helper": "^3.0.1",
     "react": "^16.8.6",
