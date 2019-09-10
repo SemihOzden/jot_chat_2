@@ -76,7 +76,6 @@ I have been using 7 different question types in my `jotform_chatbot` project.
 Other question types will be added. They are in the progress.
 
 ## Contributing
----------------
 Feel free to send pull request.
 
 ## Licence
