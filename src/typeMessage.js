@@ -6,16 +6,29 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { WarningMessages } from './warningMessages';
 
+var warnNowMessage = '';
 
 class TypeMessage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      content: '',
+      warningMessage: null
     };
     this.handleSendForm = this.handleSendForm.bind(this);
   }
+
+
+    warningMessageAnimation= (getWarningMessage) => {
+      this.setState({ warningMessage: getWarningMessage });
+      console.log('updated', this.state.warningMessage);
+      const timer = setTimeout(() => {
+        clearTimeout(timer);
+        this.setState({ warningMessage: null });
+      }, 2000);
+    }
 
     handleChange=(event) => {
       this.setState({ content: event.target.value });
@@ -23,6 +36,7 @@ class TypeMessage extends Component {
     async handleSendForm() {
       await this.props.sendForm();
       await this.props.sendFormInfo();
+      this.setState({ content: '' });
     }
 
     // eslint-disable-next-line max-statements
@@ -40,14 +54,18 @@ class TypeMessage extends Component {
           if (question.format === 'ddmmyyyy' && devideDate.length > 0 && devideDate.length === 3) {
             if ((Number(devideDate[0]) > 0 && Number(devideDate[0]) <= 31) && (Number(devideDate[1]) > 0 && Number(devideDate[1] <= 12)) && (Number(devideDate[2]) > 1200 && Number(devideDate[2] <= new Date().getUTCFullYear()))) {
               this.props.addMessage(this.state);
+              warnNowMessage = '';
               this.setState({ content: '' });
             } else {
-              window.alert('Please write appropriate date');
+              warnNowMessage = 'Please write appropriate date';
               this.setState({ content: '' });
             }
           } else {
-            window.alert('Please wite appropriate date');
+            warnNowMessage = 'Please write appropriate date';
             this.setState({ content: '' });
+          }
+          if (warnNowMessage !== '') {
+            this.warningMessageAnimation(warnNowMessage);
           }
         } else if (question.type === 'control_radio') {
           const radioOption = this.state.content;
@@ -55,22 +73,16 @@ class TypeMessage extends Component {
           const divideOptions = question.options.split('|');
           // eslint-disable-next-line no-restricted-globals
           if (isNaN(Number(radioOption))) {
-            // window.alert('Please write only number for option selection.');
+            this.warningMessageAnimation('Please write only number for option selection.');
             this.setState({ content: '' });
           } else {
-            // window.alert('yes it is numerical');
             this.setState({ content: '' });
-            divideOptions.map((item) => {
-              if (Number(radioOption) === divideOptions.indexOf(item)) {
-                this.props.addMessage(this.state);
-                return ('Yes you enterered appropriate number');
-              // eslint-disable-next-line no-else-return
-              } else {
-                // add this.props.addWarningMessage() props here to send alert to main field in main Container component
-                // window.alert('Please enter appropriate option');
-                return ('Please write only appropriate option number');
-              }
-            });
+            const result = divideOptions.filter(divideOption => Number(radioOption) === divideOptions.indexOf(divideOption));
+            if (result.length > 0) {
+              this.props.addMessage(this.state);
+            } else {
+              this.warningMessageAnimation('Please write only appropriate option number');
+            }
           }
         } else if (question.type === 'control_dropdown') {
           const radioOption = this.state.content;
@@ -78,23 +90,20 @@ class TypeMessage extends Component {
           const divideOptions = question.options.split('|');
           // eslint-disable-next-line no-restricted-globals
           if (isNaN(Number(radioOption))) {
-            // window.alert('Please write only number for option selection.');
+            this.warningMessageAnimation('Please write only number for option selection.');
             this.setState({ content: '' });
           } else {
-            window.alert('yes it is numerical');
             this.setState({ content: '' });
-            divideOptions.map((item) => {
-              if (Number(radioOption) === divideOptions.indexOf(item)) {
-                this.props.addMessage(this.state);
-                return ('Yes you enterered appropriate number');
-              // eslint-disable-next-line no-else-return
-              } else {
-                // add this.props.addWarningMessage() props here to send alert to main field in main Container component
-                // window.alert('Please enter appropriate option');
-                return ('Please write only appropriate option number');
-              }
-            });
+            const result = divideOptions.filter(divideOption => Number(radioOption) === divideOptions.indexOf(divideOption));
+            if (result.length > 0) {
+              this.props.addMessage(this.state);
+            } else {
+              this.warningMessageAnimation('Please write only appropriate option number');
+            }
           }
+          // if (warnNowMessage !== '') {
+          //   this.warningMessageAnimation(warnNowMessage);
+          // }
         } else if (question.type === 'control_email') {
           const radioOption = this.state.content;
           // eslint-disable-next-line no-inner-declarations
@@ -107,8 +116,8 @@ class TypeMessage extends Component {
             this.props.addMessage(this.state);
             this.setState({ content: '' });
           } else {
-            // window.alert('Email is not valid');
             this.setState({ content: '' });
+            this.warningMessageAnimation('Please write appropriate email');
           }
         } else if (question.type === 'control_checkbox') {
           const radioOption = this.state.content;
@@ -117,15 +126,12 @@ class TypeMessage extends Component {
 
           // If there are options more than 1
           if (radioOption.length > 1) {
-            window.alert('birden fazla değer var');
             if (radioOption.search(',') !== -1) {
               var saveMultipleOptions = { content: '' };
               var saveMultipleOpt = saveMultipleOptions;
               const divideRadioOption = radioOption.split(',');
-              window.alert('-1 yes Only comma used');
               this.setState({ content: '' });
               for (var i = 0; i < divideOptions.length; i++) {
-                console.log('ilk', divideOptions.indexOf(divideOptions[i]));
                 for (var k = 0; k < divideRadioOption.length; k++) {
                   if (Number(divideRadioOption[k]) === divideOptions.indexOf(divideOptions[i])) {
                     if (i === divideOptions.length - 1) {
@@ -138,24 +144,20 @@ class TypeMessage extends Component {
                     continue;
                   }
                 }
-                console.log('saveMultiple Options', saveMultipleOpt);
               }
-              console.log(saveMultipleOpt);
               this.props.addMessage(saveMultipleOpt);
             } else {
-              window.alert('-5 Please use only comma (,) to devide options');
+              this.warningMessageAnimation('Please use only comma (,) to devide options');
             }
           } else {
             // If there is only 1 option
-            window.alert('-6 bir değer var');
-
             divideOptions.map((item) => {
               if (Number(radioOption) === divideOptions.indexOf(item)) {
                 this.props.addMessage(this.state);
                 return ('-7 Yes you enterered appropriate number');
               // eslint-disable-next-line no-else-return
               } else {
-                window.alert('-8 Please enter appropriate option');
+                this.warningMessageAnimation('Please enter appropraite option');
                 return ('Please write only appropriate option number');
               }
             });
@@ -188,18 +190,21 @@ class TypeMessage extends Component {
       // eslint-disable-next-line no-else-return
       } else {
         return (
-          <div className="type_msg">
-            <div className="input_msg_write">
-              <input
-                type="text" className="write_msg" value={this.state.content}
-                onChange={this.handleChange} placeholder={this.props.message}
-              />
-              <button
-                className="msg_send_btn" onClick={this.handleSubmit}
-                type="button"
-              >
-                <i className="fa fa-paper-plane-o" aria-hidden="true" />
-              </button>
+          <div>
+            <WarningMessages sendWarningMessage={this.state.warningMessage} />
+            <div className="type_msg">
+              <div className="input_msg_write">
+                <input
+                  type="text" className="write_msg" value={this.state.content}
+                  onChange={this.handleChange} placeholder={this.props.message}
+                />
+                <button
+                  className="msg_send_btn" onClick={this.handleSubmit}
+                  type="button"
+                >
+                  <i className="fa fa-paper-plane-o" aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
         );

@@ -1,6 +1,14 @@
+/* eslint-disable prefer-template */
 import React from 'react';
 import { connect } from 'react-redux';
 
+var tempDate = new Date();
+var getHour = '';
+if (Number(tempDate.getHours()) >= 13) {
+  getHour = tempDate.getHours() + ':' + tempDate.getMinutes() + ' PM';
+} else {
+  getHour = tempDate.getHours() + ':' + tempDate.getMinutes() + ' AM';
+}
 class FinishMessage extends React.Component {
   render() {
     // eslint-disable-next-line react/prop-types
@@ -14,7 +22,7 @@ class FinishMessage extends React.Component {
             <p>
               <span className="outgoing_msg_question"> You fulfilled the form. Please click Send Form button to send the form.</span>
             </p>
-            <span className="time_date">11.48</span>
+            <span className="time_date">{getHour}</span>
           </div>
         </div>
       );

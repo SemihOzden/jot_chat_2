@@ -33,7 +33,6 @@ class MainContainer extends Component {
   }
 
 sendFormInfo=() => {
-  console.log('Send Form infoya geldik.');
   return this.props.dispatch({ type: 'SEND_FORM_INFO', sendingMessage: 'You have sent your form successfully.' });
 }
 
@@ -181,6 +180,7 @@ sendForm=() => {
   xhr.open('POST', `https://api.jotform.com/form/${this.props.formId}/submissions?apiKey=${this.props.apiKey}`);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send(JSON.stringify(submitMessage));
+  this.scrollToBottom();
 }
 
 
@@ -243,11 +243,12 @@ render() {
               {/* Send Form Message */
                 <SendFormMessage />
               }
+
             </div>
 
             {/* Type message into text field */ }
             <TypeMessage
-              message="sendSomething" warning={this.warning} sendForm={this.sendForm}
+              message="Write Something" warning={this.warning} sendForm={this.sendForm}
               addMessage={this.addMessage} sendFormInfo={this.sendFormInfo}
               nextQuestion={this.nextQuestion}
             />
