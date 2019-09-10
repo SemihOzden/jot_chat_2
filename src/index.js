@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import ReactDOM from 'react-dom'; //
-// import './index.css';
+import './index.css';
 // import * as serviceWorker from './serviceWorker'; //
 import ProviderComponent from './providerComponent';
 
@@ -34,12 +34,12 @@ const initialState = {
 //   }
 // }
 // export default JotChat;
-ReactDOM.render(<ProviderComponent initialState={initialState} />, document.getElementById('root'));
+// ReactDOM.render(<ProviderComponent initialState={initialState} />, document.getElementById('root'));
 
-// ReactDOM.render(
-//   <ProviderComponent initialState={initialState} />
-//   , document.getElementById('root')
-// );
+ReactDOM.render(
+  <ProviderComponent initialState={initialState} />
+  , document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -64,6 +64,6 @@ export const YesNoMessages = ({ messages }) => {
       </div>
     );
   } else {
-    return '';
+    return null;
   }
 };

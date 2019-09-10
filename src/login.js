@@ -21,8 +21,6 @@ class Login extends React.Component {
         value.message = '';
         return x.props.dispatch({ type: 'SAVE_FORM_QUESTIONS', formQuestion: value });
       });
-
-      console.log('props save form questions', x.props.saveFormQuestions);
     }, (error) => {
       console.log(error);
     });

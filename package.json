@@ -1,7 +1,7 @@
 {
   "name": "jot_chat_2",
-  "version": "0.3.3",
-  "main": "./src/index.js",
+  "version": "0.4.5",
+  "main": "index.js",
   "dependencies": {
     "immutability-helper": "^3.0.1",
     "react": "^16.8.6",

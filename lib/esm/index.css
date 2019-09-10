@@ -32,6 +32,7 @@ img {
   border: 1px solid #c4c4c4;
   clear: both;
   overflow: hidden;
+
 }
 
 .top_spac {
@@ -133,29 +134,30 @@ img {
 
 .incoming_msg_img {
   display: inline-block;
-  width: 6%;
-}
-.outgoing_msg_img {
-  display: inline-block;
   width: 7%;
   float: right;
   padding-left:4px;
 }
+.outgoing_msg_img {
+  display: inline-block;
+  width: 7%;
+  float: left;
+}
 
 .received_msg {
-  display: inline-block;
-  padding: 0 0 0 10px;
-  vertical-align: top;
-  width: 92%;
+  overflow: hidden;
+  float: right;
+  min-width: 15%;
+  margin-right:2px;
 }
 
 .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
-  border-radius:3 3 0 0px;
+  border-radius:5 5 0 0px;
   color: #646464;
   font-size: 14px;
   margin: 0;
-  padding: 5px 10px 5px 12px;
+  padding: 13px 13px 13px 12px;
   width: 100%;
 }
 
@@ -197,16 +199,24 @@ img {
 }
 
 .outgoing_msg {
-  overflow: hidden;
-  margin: 26px 0 26px;
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 90%;
+}
+
+.outgoing_msg_question {
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .sent_msg {
-  float: right;
-  width: 80%;
+  float: left;
+  min-width: 30%;
+  margin-left:10px;
 }
 
-.input_msg_write input {
+.input_msg_write>input[type="text"] {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
   color: #4c4c4c;
@@ -236,12 +246,15 @@ img {
 
 .messaging {
   padding: 0 0 50px 0;
+
 }
 
 .msg_history {
   height: 516px;
   overflow-y:auto;
+
 }
+
 
 .nextButton{
   float: right;
@@ -257,8 +270,62 @@ img {
 }
 
 .sendForm{
-  float: right;
+  display: inline-block;
+  margin-top:10px;
+  position: absolute;
+  right: 0;
+  top: -5px;
 
 }
-.options_P{}
+.sendForm>input[type=button]{
+  background-color: #fd7300;
+  color: #f8f8f8;
+  border-radius: 2px;
+  width: 100px;
+  height: 40px;
+  border:none;
+  cursor: pointer;
+}
+
+
+.checkMultipleSelection{
+  font-size: 12px;
+  display: block;
+  margin-bottom: -10px;
+  text-decoration: underline;
+}
+.warningMessages{
+  width:750px;
+  height: 50px;
+  background-color: red;
+  padding: 13px 10px 10px 10px;
+  position: relative;
+}
+.messageOnTheScreen{
+  color:white;
+}
+.closeMessage{
+  position: absolute;
+  right: 0px;
+  top:0px;
+  color:black;
+  background-color: white;
+  width: 20px;
+  border-radius: 10px;
+  padding: 4px;
+}
+.fade-enter{
+  opacity: 0;
+}
+.fade-enter-active{
+  opacity: 1;
+  transition: opacity 3000ms ease-in;
+}
+.fade-leave{
+  opacity: 1;
+}
+.fade-leave-active{
+  opacity: 0;
+  transition: opacity 3000ms ease-out;
+}
 /*# sourceMappingURL=index.css.map */

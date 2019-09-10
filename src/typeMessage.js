@@ -5,6 +5,7 @@
 
 /* eslint-disable no-console */
 import React, { Component } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { WarningMessages } from './warningMessages';
 
@@ -23,11 +24,10 @@ class TypeMessage extends Component {
 
     warningMessageAnimation= (getWarningMessage) => {
       this.setState({ warningMessage: getWarningMessage });
-      console.log('updated', this.state.warningMessage);
       const timer = setTimeout(() => {
         clearTimeout(timer);
         this.setState({ warningMessage: null });
-      }, 2000);
+      }, 2500);
     }
 
     handleChange=(event) => {
@@ -38,12 +38,16 @@ class TypeMessage extends Component {
       await this.props.sendFormInfo();
       this.setState({ content: '' });
     }
+    handleKeyPress = (e) => {
+      if (e.keyCode === 13) {
+        this.handleSubmit(e);
+      }
+    }
 
     // eslint-disable-next-line max-statements
     handleSubmit=(event) => {
       event.preventDefault();
       if (this.props.allMessages.length === 0 && this.state.content !== '' && (this.state.content === 'yes' || this.state.content === 'Yes' || this.state.content === 'YES' || this.state.content === 'no' || this.state.content === 'No' || this.state.content === 'NO')) {
-        console.log('tıklandı');
         this.props.nextQuestion(this.state);
         this.setState({ content: '' });
       } else if (this.state.content !== '' && this.props.allMessages.length !== 0) {
@@ -191,12 +195,19 @@ class TypeMessage extends Component {
       } else {
         return (
           <div>
-            <WarningMessages sendWarningMessage={this.state.warningMessage} />
+            <ReactCSSTransitionGroup
+              transitionName="fade"
+              transitionEnter={3000}
+              transitionLeave={3000}
+            >
+              <WarningMessages sendWarningMessage={this.state.warningMessage} />
+            </ReactCSSTransitionGroup>
             <div className="type_msg">
               <div className="input_msg_write">
                 <input
                   type="text" className="write_msg" value={this.state.content}
                   onChange={this.handleChange} placeholder={this.props.message}
+                  onKeyDown={this.handleKeyPress}
                 />
                 <button
                   className="msg_send_btn" onClick={this.handleSubmit}

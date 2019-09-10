@@ -65,7 +65,6 @@ scrollToBottom=() => {
 // Text added to question's message properties
 updateQuestionMessage=(message) => {
   const contentMessage = message.content;
-  console.log('message in updateQuestionMessage', contentMessage);
   return this.props.dispatch({ type: 'UPDATE_QUESTIONS_MESSAGE', message: contentMessage });
 }
 
@@ -74,13 +73,10 @@ saveMessageOfAddMessage=() => {
 }
 
 async addMessage(message) {
-  console.log('message in addMessage Func', message);
   //     //Firstly message is added into related question field's message field
   await this.updateQuestionMessage(message);
   if (this.props.count < this.props.saveFormQuestions.length) {
     await this.saveMessageOfAddMessage();
-  } else {
-    console.log('soru bitti');
   }
 
   // Next question is added into allMessages redux store
@@ -107,14 +103,10 @@ sendForm=() => {
         if (this.props.allMessages[i].order === this.props.saveFormQuestions[l].order) {
           // Divide options according to |
           const divideOptions = this.props.saveFormQuestions[l].options.split('|');
-          console.log('gelen divide optionssss', divideOptions, `gelen all Messages option${this.props.allMessages[i].message}`);
           for (var k = 0; k < divideOptions.length; k++) {
             if (divideOptions.indexOf(divideOptions[k]) === parseInt(this.props.allMessages[i].message)) {
-              console.log(`eşiti yakaladım sen ${divideOptions[k]}seçmişsin`, `allmessages message${this.props.allMessages[i].message}`);
               // send selected options into submitMessage to send jotform
               submitMessage[qid] = divideOptions[k];
-            } else {
-              console.log(`eşiti yakalayamadım${this.props.allMessages[i].message}`);
             }
           }
         }
@@ -125,14 +117,10 @@ sendForm=() => {
         if (this.props.allMessages[i].order === this.props.saveFormQuestions[m].order) {
           // Divide options according to |
           const divideOptions = this.props.saveFormQuestions[m].options.split('|');
-          console.log('gelen divide optionssss', divideOptions, `gelen all Messages option${this.props.allMessages[i].message}`);
           for (var n = 0; n < divideOptions.length; n++) {
             if (divideOptions.indexOf(divideOptions[n]) === parseInt(this.props.allMessages[i].message)) {
-              console.log(`eşiti yakaladım sen ${divideOptions[n]}seçmişsin`, `allmessages message${this.props.allMessages[i].message}`);
               // send selected options into submitMessage to send jotform
               submitMessage[qid] = divideOptions[n];
-            } else {
-              console.log(`eşiti yakalayamadım${this.props.allMessages[i].message}`);
             }
           }
         }
@@ -160,14 +148,10 @@ sendForm=() => {
         if (this.props.allMessages[i].order === this.props.saveFormQuestions[y].order) {
           // Divide options according to |
           const divideOptions = this.props.saveFormQuestions[y].options.split('|');
-          console.log('gelen multiple Checkbox options', divideOptions, `gelen all Messages option${this.props.allMessages[i].message}`);
           for (var z = 0; z < divideOptions.length; z++) {
             for (var t = 0; t < divideOptions.length; t++) {
               if (divideOptions.indexOf(divideOptions[z]) === parseInt(divideMessageOptions[t])) {
                 sendCheckBoxArray.push(divideOptions[z]);
-                console.log(`eşleşen multiple checkboxlar${divideOptions[z]}`);
-              } else {
-                console.log('multiple checkbox eşleşmedi');
               }
             }
             submitMessage[qid] = sendCheckBoxArray;
@@ -177,7 +161,6 @@ sendForm=() => {
     }
   }
   const xhr = new XMLHttpRequest();
-  console.log(submitMessage);
   xhr.open('POST', `https://api.jotform.com/form/${this.props.formId}/submissions?apiKey=${this.props.apiKey}`);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send(JSON.stringify(submitMessage));
