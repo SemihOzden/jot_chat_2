@@ -13,10 +13,12 @@ or
 ## Usage
 
 1.  Include jotform javascript api into your main html page.
-* `<script src="https://js.jotform.com/JotForm.js"></script> `
+``` javascript
+<script src="https://js.jotform.com/JotForm.js"></script>
+ ```
 2.  Include following bootstrap and scripts into your main html page between `<head>` tags.
 
-```
+``` javascript
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
@@ -27,7 +29,7 @@ or
 3.  You should import ` node_modules/jot_chat_2/lib/cjs/index.css ` from your node modules. It is my css file.
 
 ### Example usage
-```
+``` javascript
 import React from 'react';
 import JotChat from 'jotform_chatbot';
 import '../node_modules/jot_chat_2/lib/cjs/index.css'
@@ -64,7 +66,6 @@ I have been using 7 different question types in my `jotform_chatbot` project.
 
 | Question Types        |
 | -------------     |
-| formId            |
 | control_name |
 | control_email |
 | control_dropdown |
