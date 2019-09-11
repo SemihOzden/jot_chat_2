@@ -193,7 +193,7 @@ render() {
                 </div>
                 <div className="sent_msg">
                   <p>
-                    <span className="outgoing_msg_question">Would you like to fullfill the form?  YES OR NO ?</span>
+                    <span className="outgoing_msg_question">Please type YES OR NO to fulfill {this.props.getFormTitle} form?</span>
 
                   </p>
                   <span className="time_date"> {getHour}</span>
@@ -250,6 +250,7 @@ const mapStateToProps = state => ({
   count: state.count,
   allMessages: state.allMessages,
   username: state.username,
-  yesNoMessage: state.yesNoMessage
+  yesNoMessage: state.yesNoMessage,
+  getFormTitle: state.getFormTitle
 });
 export default connect(mapStateToProps)(MainContainer);

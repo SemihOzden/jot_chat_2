@@ -36,7 +36,7 @@ export const OutgoingMessages = ({ question }) => {
           </div>
           <div className="sent_msg">
             <p>
-              <span className="outgoing_msg_question">{`${question.text} Format: DD-MM-YYYY`}</span>
+              <span className="outgoing_msg_question">{`${question.text}( DD-MM-YYYY )`}</span>
             </p>
             <span className="time_date"> {getHour}</span>
           </div>

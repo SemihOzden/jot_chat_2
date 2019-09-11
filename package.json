@@ -1,6 +1,6 @@
 {
   "name": "jotform_chatbot",
-  "version": "0.0.10",
+  "version": "0.0.13",
   "main": "index.js",
   "license": "MIT",
   "author": "semihozden",

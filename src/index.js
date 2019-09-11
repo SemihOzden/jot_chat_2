@@ -6,15 +6,15 @@ import './index.css';
 import ProviderComponent from './providerComponent';
 
 const initialState = {
-  formId: '****Your jotform-form ID***',
-  apiKey: '****Your jotform-apiKey****',
+  formId: '92112257961961',
+  apiKey: '7fcefff03d226f77300b4f82a5311166',
   allMessages: [],
   saveFormQuestions: [],
   count: 0,
   username: '',
   yesNoMessage: '',
-  sendingMessage: ''
+  sendingMessage: '',
+  getFormTitle: ''
 };
-
 
 ReactDOM.render(<ProviderComponent initialState={initialState} />, document.getElementById('root'));

@@ -26,6 +26,11 @@ class ProviderComponent extends Component {
           ...state,
           sendingMessage: action.sendingMessage
         };
+      case 'SAVE_FORM_TITLE':
+        return {
+          ...state,
+          getFormTitle: action.getFormTitle
+        };
       case 'YESNO_MESSAGE':
         return {
           ...state,

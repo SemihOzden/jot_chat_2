@@ -50,6 +50,9 @@ function App() {
 export default App;
 
 ```
+## [Live Demo](https://semihozden.github.io/npm_jotform_tester/)
+
+
 ## Properties
 
 You should use following properties to use this jotform_chatbot properly.

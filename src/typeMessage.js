@@ -174,7 +174,7 @@ class TypeMessage extends Component {
     }
 
     render() {
-      if (this.props.saveFormQuestions.length === this.props.count) {
+      if (this.props.saveFormQuestions.length === this.props.count && this.props.sendingMessage === '') {
         return (
           <div className="type_msg">
             <div className="input_msg_write">
@@ -186,6 +186,23 @@ class TypeMessage extends Component {
                 <input
                   type="button" className="sendFormBtn" value="Send Form"
                   onClick={this.handleSendForm}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      // eslint-disable-next-line no-else-return
+      } else if (this.props.saveFormQuestions.length === this.props.count && this.props.sendingMessage !== '') {
+        return (
+          <div className="type_msg">
+            <div className="input_msg_write">
+              <input
+                type="text" disabled
+                placeholder={this.props.message}
+              />
+              <div className="sendForm">
+                <input
+                  type="button" className="sendFormBtn" value="Send Form"
                 />
               </div>
             </div>
@@ -227,7 +244,8 @@ const mapStateToProps = state => ({
   apiKey: state.apiKey,
   saveFormQuestions: state.saveFormQuestions,
   count: state.count,
-  allMessages: state.allMessages
+  allMessages: state.allMessages,
+  sendingMessage: state.sendingMessage
 });
 
 export default connect(mapStateToProps)(TypeMessage);

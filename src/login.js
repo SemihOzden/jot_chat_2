@@ -30,6 +30,11 @@ class Login extends React.Component {
     }, (error) => {
       console.log(error);
     });
+    window.JF.getForm(this.props.formId, (response) => {
+      return x.props.dispatch({ type: 'SAVE_FORM_TITLE', getFormTitle: response.title });
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   render() {
