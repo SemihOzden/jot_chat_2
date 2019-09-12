@@ -2,7 +2,7 @@
 /* eslint-disable no-else-return */
 /* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
-import JotPencil from './jot_pencil.png';
+import JotPencil from './jot_pencil_two.png';
 import UserImage from './userSend.png';
 
 var tempDate = new Date();

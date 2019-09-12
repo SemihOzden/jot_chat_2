@@ -136,11 +136,12 @@ img {
   float: right;
   min-width: 15%;
   margin-right:2px;
+
 }
 
 .received_withd_msg p {
   background: #87ed7f none repeat scroll 0 0;
-  border-radius:5 5 0 0px;
+  border-radius:3px;
   color: white;
   font-size: 14px;
   margin: 0;
@@ -161,12 +162,15 @@ img {
 }
 .text-center{
   text-align: center;
+  background-color: #fd7300;
+  color:white;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
 }
 .mesgs {
   float: left;
   padding-top: 30px;
   width: 100%;
-  background-image:url('./bckground2.jpg');
   background-size: 180px;
 }
 
@@ -195,16 +199,9 @@ img {
   width: 90%;
 }
 
-.outgoing_msg_question {
-  font-weight: bold;
-  text-transform: uppercase;
-}
 
-.sent_msg {
-  float: left;
-  min-width: 30%;
-  margin-left:10px;
-}
+
+
 .input_msg_write{
   background-color: white;
 }
@@ -237,12 +234,12 @@ img {
 }
 
 .messaging {
-  padding: 0 0 50px 0;
+  padding: 0 0 0px 0;
 
 }
 
 .msg_history {
-  height: 516px;
+  height: 400px;
   overflow-y:auto;
 
 }
@@ -305,4 +302,118 @@ img {
   width: 20px;
   border-radius: 10px;
   padding: 4px;
+}
+@media only screen and (min-width: 200px) {
+  .sent_msg {
+    /* float: left; */
+    min-width: 30%;
+    margin-left: 20px;
+  }
+
+}
+@media only screen and (min-width: 300px) {
+  .sent_msg {
+    /* float: left; */
+    min-width: 30%;
+    margin-left: 25px;
+  }
+
+}
+@media only screen and (min-width: 350px) {
+  .sent_msg {
+    /* float: left; */
+    min-width: 30%;
+    margin-left: 25px;
+  }
+
+}
+@media only screen and (min-width: 400px) {
+  .sent_msg {
+    /* float: left; */
+    min-width: 30%;
+    margin-left: 35px;
+
+  }
+
+
+}
+@media only screen and (min-width: 500px) {
+  .sent_msg {
+    /* float: left; */
+    min-width: 30%;
+    margin-left: 10px;
+    float: left;
+  }
+
+}
+@media only screen and (min-width: 600px) {
+  .sent_msg {
+    /* float: left; */
+    min-width: 30%;
+    margin-left: 10px;
+    float: left;
+
+  }
+
+}
+
+@media only screen and (min-width: 650px) {
+  .sent_msg {
+    min-width: 10%;
+    margin-left:10px;
+    float: left;
+  }
+  .outgoing_msg_question {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .sent_msg {
+    min-width: 10%;
+    margin-left:10px;
+    float: left;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 992px) {
+  .sent_msg {
+    min-width: 10%;
+    margin-left:10px;
+
+  }
+  .outgoing_msg_question {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .sent_msg {
+    min-width: 10%;
+    margin-left:30px;
+
+  }
+  .outgoing_msg_question {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+}
+
+
+
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .sent_msg {
+    min-width: 10%;
+    margin-left:10px;
+    float: left;
+      }
+  .outgoing_msg_question {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable prefer-template */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import JotPencil from './jot_pencil.png';
+import JotPencil from './jot_pencil_two.png';
 
 export const OutgoingMessages = ({ question }) => {
   var tempDate = new Date();

@@ -16,7 +16,8 @@ import { connect } from 'react-redux';
 import { YesNoMessages } from './yesNoMessages';
 import FinishMessage from './finishMessage';
 import SendFormMessage from './sendFormMessage';
-import JotPencil from './jot_pencil.png';
+import JotPencil from './jot_pencil_two.png';
+import JotBackground from './bckground.png';
 
 var tempDate = new Date();
 var getHour = '';
@@ -174,7 +175,7 @@ render() {
       <h3 className="text-center">Jotform ChatBot</h3>
       <div className="messaging" >
         <div className="inbox_msg" >
-          <div className="mesgs" >
+          <div className="mesgs" style={{ backgroundImage: 'url(' + JotBackground + ')' }}>
             <div className="msg_history" ref={this.heightRef}>
               <div className="outgoing_msg">
                 <div className="outgoing_msg_img">

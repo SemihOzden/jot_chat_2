@@ -1,7 +1,7 @@
 /* eslint-disable prefer-template */
 import React from 'react';
 import { connect } from 'react-redux';
-import JotPencil from './jot_pencil.png';
+import JotPencil from './jot_pencil_two.png';
 
 var tempDate = new Date();
 var getHour = '';
@@ -27,8 +27,10 @@ class FinishMessage extends React.Component {
           </div>
         </div>
       );
+    // eslint-disable-next-line no-else-return
+    } else {
+      return null;
     }
-    return '';
   }
 }
 
