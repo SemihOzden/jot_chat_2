@@ -2,6 +2,8 @@
 
 By importing one react component `JotChat`, you can use it as chatbot in your projects.
 
+This is a proof of concept. If you want to use it, you need proxy server.
+
 ## Install
 
 `npm install jotform_chatbot`
