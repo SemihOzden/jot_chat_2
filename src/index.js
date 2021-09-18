@@ -9,8 +9,8 @@ import * as serviceWorker from './serviceWorker';
 import update from 'immutability-helper';
 
 const initialState = {
-  formId: '92112257961961',
-  apiKey: '7fcefff03d226f77300b4f82a5311166',
+  formId: '',
+  apiKey: '',
   allMessages: [],
   saveFormQuestions: [],
   count: 0,
